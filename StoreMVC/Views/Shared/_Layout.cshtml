@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title StoreMVC</title>
+	@Styles.Render("~/Content/css")
+	@Styles.Render("~/Content/bootstrap")
+	@Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+
+	@*+++ Navigation menu +++*@
+	@Html.Partial("_NavigationTop")
+	@*--- Navigation menu ---*@
+
+
+	@*+++ BreadCrumbs +++*@
+	@Html.Partial("_BreadCrumbs")
+	@*--- BreadCrumbs ---*@
+
+	@*Навигация по sitemap*@
+	@*<div class="row">
+			<div class="span12">
+				<nav>
+					@Html.MvcSiteMap().Menu("BootstrapMenuHelperModel")
+				</nav>
+			</div>
+		</div>*@
+	<!-- //row -->
+
+
+	<div class="container body-content">
+		@if (IsSectionDefined("Body"))
+		{
+			@RenderSection("Body");
+		}
+		else
+		{
+			@RenderBody();
+		}
+
+		<hr />
+
+		@*+++ Footer +++*@
+		@Html.Partial("_Footer")
+		@*--- Footer ---*@
+
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/jqueryval") @*Подключение сценариев для валидации форм*@
+	@RenderSection("scripts", required: false)
+</body>
+</html>

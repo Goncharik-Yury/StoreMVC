@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
+            enableLocalization="true">
+	<mvcSiteMapNode title="Home" controller="Home" action="Index">
+		<mvcSiteMapNode title="About" controller="Home" action="About" />
+		<mvcSiteMapNode title="Contact" controller="Home" action="Contact" />
+		<mvcSiteMapNode title="Customers" controller="Customers" action="Index">
+			<mvcSiteMapNode title="Create" controller="Customers" action="Create" />
+			<mvcSiteMapNode title="Delete" controller="Customers" action="Delete" />
+			<mvcSiteMapNode title="Details" controller="Customers" action="Details" >
+				<mvcSiteMapNode title="ID" url="Customers/Details/1" />
+			</mvcSiteMapNode>
+			<mvcSiteMapNode title="Edit" controller="Customers" action="Edit" />
+		</mvcSiteMapNode>
+		<mvcSiteMapNode title="Orders" controller="Orders" action="Index">
+			<mvcSiteMapNode title="Create" controller="Orders" action="Create" />
+			<mvcSiteMapNode title="Delete" controller="Orders" action="Delete" />
+			<mvcSiteMapNode title="Details" controller="Orders" action="Details" />
+			<mvcSiteMapNode title="Edit" controller="Orders" action="Edit" />
+		</mvcSiteMapNode>
+		<mvcSiteMapNode title="Products" controller="Products" action="Index">
+			<mvcSiteMapNode title="Create" controller="Products" action="Create" />
+			<mvcSiteMapNode title="Delete" controller="Products" action="Delete" />
+			<mvcSiteMapNode title="Details" controller="Products" action="Details" />
+			<mvcSiteMapNode title="Edit" controller="Products" action="Edit" />
+		</mvcSiteMapNode>
+	</mvcSiteMapNode>
+</mvcSiteMap>

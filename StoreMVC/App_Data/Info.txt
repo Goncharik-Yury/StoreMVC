@@ -1,0 +1,6 @@
+﻿
+--- DB migration ---
+in Package Manager Console:
+	enable-migrations
+	Add-Migration "MigrateDB"
+	Update-Database
