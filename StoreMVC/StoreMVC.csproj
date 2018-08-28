@@ -199,6 +199,10 @@
     <Compile Include="Migrations\201808231931349_MigrateDB6.Designer.cs">
       <DependentUpon>201808231931349_MigrateDB6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808261602355_MigrateDB7.cs" />
+    <Compile Include="Migrations\201808261602355_MigrateDB7.Designer.cs">
+      <DependentUpon>201808261602355_MigrateDB7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Controllers\CustomerModelBinder.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -352,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808231931349_MigrateDB6.resx">
       <DependentUpon>201808231931349_MigrateDB6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808261602355_MigrateDB7.resx">
+      <DependentUpon>201808261602355_MigrateDB7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
