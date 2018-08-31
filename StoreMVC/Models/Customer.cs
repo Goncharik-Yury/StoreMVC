@@ -12,7 +12,7 @@ namespace StoreMVC.Models
 		public int CustomerId { get; set; }
 
 		[Display(Name = "Customer name")]
-		//[Index(IsUnique = true)]
+		[Index(IsUnique = true)]
 		[Required(ErrorMessage = "Вы не ввели имя")]
 		[StringLength(20, ErrorMessage = "Имя не может привышать 20 символов")]
 		public string Name { get; set; }

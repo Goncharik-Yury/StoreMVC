@@ -49,10 +49,11 @@ namespace StoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CustomerId,Name,Email")] Customer customer)
         {
-			//if (String.IsNullOrEmpty(customer.Name))
-			//{
-			//	ModelState.AddModelError("Name", "Введите имя");
-			//}
+			if (db.Customers.FirstOrDefault(n => n.Name == customer.Name) != null)
+			{
+				ModelState.AddModelError("Name", "Имя занято");
+			}
+
 			//if (customer.Email != null && !new Regex(@"\b[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,4}\b").IsMatch(customer.Email))
 			//{
 			//	ModelState.AddModelError("Email", "Email не правильный");
