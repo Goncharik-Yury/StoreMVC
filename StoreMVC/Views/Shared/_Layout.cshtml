@@ -9,9 +9,13 @@
 	@Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
 	@Html.Partial("_NavigationTop")
 	@Html.Partial("_BreadCrumbs")
+
+	<section id="login">
+		@Html.Partial("_LoginPartial")
+	</section>
+
 
 
 	<div class="container body-content">

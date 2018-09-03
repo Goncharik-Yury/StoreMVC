@@ -8,17 +8,18 @@
 			</button>
 			@Html.ActionLink("StoreMVC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 		</div>
+
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li>@Html.ActionLink("Products", "Index", "Products")</li>
 				<li>@Html.ActionLink("Customers", "Index", "Customers")</li>
 				<li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+				<li>@Html.ActionLink("Cabinet", "Cabinet", "Home")</li>
+				<li>@Html.ActionLink("Admin Panel", "AdminPanel", "Home")</li>
+				<li>@Html.ActionLink("Moderator Panel", "ModeratorPanel", "Home")</li>
 				<li>@Html.ActionLink("About", "About", "Home")</li>
 				<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
 			</ul>
 		</div>
-		<section id="login">
-			@Html.Partial("_LoginPartial")
-		</section>
 	</div>
 </div>

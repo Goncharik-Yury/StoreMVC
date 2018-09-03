@@ -448,6 +448,9 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Home\AdminPanel.cshtml" />
+    <Content Include="Views\Home\Cabinet.cshtml" />
+    <Content Include="Views\Home\ModeratorPanel.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
