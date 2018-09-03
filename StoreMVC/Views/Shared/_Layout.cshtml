@@ -10,25 +10,8 @@
 </head>
 <body>
 
-
-	@*+++ Navigation menu +++*@
 	@Html.Partial("_NavigationTop")
-	@*--- Navigation menu ---*@
-
-
-	@*+++ BreadCrumbs +++*@
 	@Html.Partial("_BreadCrumbs")
-	@*--- BreadCrumbs ---*@
-
-	@*Навигация по sitemap*@
-	@*<div class="row">
-			<div class="span12">
-				<nav>
-					@Html.MvcSiteMap().Menu("BootstrapMenuHelperModel")
-				</nav>
-			</div>
-		</div>*@
-	<!-- //row -->
 
 
 	<div class="container body-content">
@@ -40,12 +23,9 @@
 		{
 			@RenderBody();
 		}
-
 		<hr />
 
-		@*+++ Footer +++*@
 		@Html.Partial("_Footer")
-		@*--- Footer ---*@
 
 	</div>
 
