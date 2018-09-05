@@ -3,6 +3,20 @@
 	<text>
 		Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
 
+		@if (User.IsInRole("Admin"))
+		{
+			@Html.ActionLink("Admin Panel", "AdminPanel", "Home", routeValues: null, htmlAttributes: new { id = "AdminPanel" })
+		}
+		else
+		if (User.IsInRole("Moderator"))
+		{
+			@Html.ActionLink("Moderator Panel", "ModeratorPanel", "Home", routeValues: null, htmlAttributes: new { id = "ModeratorPanel" })
+		}
+		else
+		{
+			@Html.ActionLink("Cabinet", "Cabinet", "Home", routeValues: null, htmlAttributes: new { id = "Cabinet" })
+		}
+
 		@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
 		{
 			@Html.AntiForgeryToken()

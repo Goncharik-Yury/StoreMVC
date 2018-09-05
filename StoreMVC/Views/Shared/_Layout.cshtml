@@ -9,8 +9,8 @@
 	@Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-	@Html.Partial("_NavigationTop")
-	@Html.Partial("_BreadCrumbs")
+	@Html.Partial("_NavigationTopPartial")
+	@Html.Partial("_BreadCrumbsPartial")
 
 	<section id="login">
 		@Html.Partial("_LoginPartial")
@@ -29,7 +29,7 @@
 		}
 		<hr />
 
-		@Html.Partial("_Footer")
+		@Html.Partial("_FooterPartial")
 
 	</div>
 

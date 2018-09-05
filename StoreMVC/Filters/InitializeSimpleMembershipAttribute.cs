@@ -48,16 +48,17 @@ namespace StoreMVC.Filters
 					SimpleRoleProvider roles = (SimpleRoleProvider)Roles.Provider;
 					SimpleMembershipProvider membership = (SimpleMembershipProvider)Membership.Provider;
 
-					// Проверка наличия роли Moderator
-					if (!roles.RoleExists("Moderator"))
-					{
-						roles.CreateRole("Moderator");
-					}
 					// Проверка наличия роли Admin
 					if (!roles.RoleExists("Admin"))
 					{
 						roles.CreateRole("Admin");
 					}
+					// Проверка наличия роли Moderator
+					if (!roles.RoleExists("Moderator"))
+					{
+						roles.CreateRole("Moderator");
+					}
+					
 					// Поиск пользователя с логином admin
 					//if (membership.GetUser("admin", false) == null)
 					//{

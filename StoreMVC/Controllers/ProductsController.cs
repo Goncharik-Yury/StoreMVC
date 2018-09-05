@@ -124,5 +124,10 @@ namespace StoreMVC.Controllers
             }
             base.Dispose(disposing);
         }
+
+		public ActionResult ProductsDataPartial()
+		{
+			return PartialView("_ProductsDataPartial", db.Products.ToList());
+		}
     }
 }
