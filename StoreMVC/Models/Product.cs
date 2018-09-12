@@ -24,5 +24,8 @@ namespace StoreMVC.Models
 		public decimal Price { get; set; }
 
 		public string Category { get; set; }
+		[Display(Name = "Product image")]
+		[UIHint("ImageTemplate")]
+		public string imgName { get; set; }
 	}
 }

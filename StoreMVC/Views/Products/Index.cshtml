@@ -13,15 +13,16 @@
 </head>
 <body>
 	@{
-		var options = new AjaxOptions()
+		var ajaxOptions = new AjaxOptions()
 		{
 			UpdateTargetId = "tabledata",
-			Url = Url.Action("_ProductsData")
+			Url = Url.Action("ProductsDataPartial"),
+			LoadingElementId = "loadingIndicator",
+			OnFailure = "OnFailure",
 		};
 	}
-	@using (Ajax.BeginForm(options))
+	@using (Ajax.BeginForm(ajaxOptions))
 	{
-		<div id="loadingIndicator" style="display:none;">Loading...</div>
 		<table class="table">
 			<thead>
 				<tr>
@@ -45,20 +46,26 @@
 				@Html.Action("ProductsDataPartial")
 			</tbody>
 		</table>
-		@Ajax.ActionLink("Refresh", "_ProductsData", new AjaxOptions
-		   {
-			   UpdateTargetId= "tabledata",
-			   LoadingElementId= "loadingIndicator"
-		   })
 	}
-	<div style="margin-right: 5px; float: left;">
+	<span style="margin-right: 5px; float: left;">
 		@Html.ActionLink("Create New", "Create")
-	</div>
+	</span>
+	&nbsp;&nbsp;
+	<span>
+		@Ajax.ActionLink("Refresh", "ProductsDataPartial", ajaxOptions)
+	</span>
+	&nbsp;&nbsp;
+	<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
 
 	@section scripts
 		{
 		@*Ненавязивый JavaScript для выполнения запроса на сервер без полного обновления страницы*@
 		<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 	}
+	<script type="text/javascript">
+		function OnFailure(request, error) {
+			alert("Some error appear:\n" + error);
+		}
+	</script>
 </body>
 </html>

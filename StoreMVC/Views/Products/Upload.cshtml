@@ -1,0 +1,12 @@
+﻿
+@{
+	ViewBag.Title = "Upload";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Выберите файл для загрузки</h3>
+@using (Html.BeginForm("Upload", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	<input type="file" name="file" accept=".jpg,.jpeg,.png,.WebP"/><br>
+	<input type="submit" value="Upload" />
+}

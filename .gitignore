@@ -262,3 +262,6 @@ __pycache__/
 
 # My files
 рг.txt
+/StoreMVC/Files/Images
+/StoreMVC/Migrations
+/TT.txt

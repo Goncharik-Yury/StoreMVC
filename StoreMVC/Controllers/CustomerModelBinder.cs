@@ -4,8 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Diagnostics;
+using StoreMVC.Models;
 
-namespace StoreMVC.Models
+namespace StoreMVC.Controllers
 {
 	public class CustomerModelBinder : IModelBinder
 	{
@@ -31,20 +32,5 @@ namespace StoreMVC.Models
 			return vpr == null ? null : vpr.AttemptedValue;
 			//return ifValidEmail(vpr.AttemptedValue) ? vpr.AttemptedValue : null;
 		}
-
-		//bool ifValidEmail(string email)
-		//{
-		//	try
-		//	{
-		//		var emailChecked = new System.Net.Mail.MailAddress(email);
-		//		Debug.WriteLine("Correct Email");
-		//	}
-		//	catch
-		//	{
-		//		Debug.WriteLine("FAIL Email");
-		//		return false;
-		//	}
-		//	return true;
-		//}
 	}
 }

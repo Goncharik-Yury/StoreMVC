@@ -279,6 +279,14 @@
     <Compile Include="Migrations\201809011358396_MigrateDB10.Designer.cs">
       <DependentUpon>201809011358396_MigrateDB10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809091402309_MigrateDB11.cs" />
+    <Compile Include="Migrations\201809091402309_MigrateDB11.Designer.cs">
+      <DependentUpon>201809091402309_MigrateDB11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809111645096_MigrateDB12.cs" />
+    <Compile Include="Migrations\201809111645096_MigrateDB12.Designer.cs">
+      <DependentUpon>201809111645096_MigrateDB12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Controllers\CustomerModelBinder.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -290,6 +298,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\DeletedCode.cs" />
     <Content Include="App_Data\Info.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -454,8 +463,13 @@
     <Content Include="Views\Home\ModeratorPanel.cshtml" />
     <Content Include="Views\Home\Cabinet.cshtml" />
     <Content Include="Views\Products\_ProductsDataPartial.cshtml" />
+    <Content Include="Views\Products\Upload.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ImageTemplate.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ImageTemplate.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Files\Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -501,6 +515,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809011358396_MigrateDB10.resx">
       <DependentUpon>201809011358396_MigrateDB10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809091402309_MigrateDB11.resx">
+      <DependentUpon>201809091402309_MigrateDB11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809111645096_MigrateDB12.resx">
+      <DependentUpon>201809111645096_MigrateDB12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
