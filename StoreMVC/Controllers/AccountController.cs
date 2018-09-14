@@ -205,6 +205,40 @@ namespace StoreMVC.Controllers
 					return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 			}
 		}
+
+
+		[Authorize] // Запрещены анонимные обращения к данной странице
+		public ActionResult Cabinet()
+		{
+			return View();
+		}
+
+		[Authorize(Roles = "Admin")] // К данному методу действия могут получать доступ только пользователи с ролью Admin
+		public ActionResult AdminPanel()
+		{
+			//var membership = (SimpleMembershipProvider)Membership.Provider;
+
+			//int totalUsers;
+			//membership.GetAllUsers(0, 5, out totalUsers);
+			//var users = Membership.GetAllUsers();
+
+			//var users = membership.GetAllUsers(0, 5, out totalUsers);
+
+			//List<MembershipUser> userList = new List<MembershipUser>();
+			//foreach (MembershipUser user in users)
+			//{
+			//	userList.Add(user);
+			//}
+			//ViewBag.Members = userList;
+
+			return View();
+		}
+
+		[Authorize(Roles = "Admin, Moderator")] // К данному методу действия могут получать доступ только пользователи с ролью Admin и Moderator
+		public ActionResult ModeratorPanel()
+		{
+			return View();
+		}
 		#endregion
 	}
 }

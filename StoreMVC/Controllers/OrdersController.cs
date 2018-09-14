@@ -10,7 +10,8 @@ using StoreMVC.Models;
 
 namespace StoreMVC.Controllers
 {
-    public class OrdersController : Controller
+	[Authorize(Roles = "Admin, Moderator")]
+	public class OrdersController : Controller
     {
         private DBStoreMVC db = new DBStoreMVC();
 

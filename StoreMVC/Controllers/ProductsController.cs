@@ -40,7 +40,9 @@ namespace StoreMVC.Controllers
 			return View(product);
 		}
 
+
 		// GET: Products/Create
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Create()
 		{
 			return View();
@@ -51,6 +53,7 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Create([Bind(Include = "ProductId,Name,Description,Price,Category")] Product product, HttpPostedFileBase file)
 		{
 			if (ModelState.IsValid)
@@ -65,6 +68,7 @@ namespace StoreMVC.Controllers
 		}
 
 		// GET: Products/Edit/5
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Edit(int? id)
 		{
 			if (id == null)
@@ -85,6 +89,7 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category")] Product product, HttpPostedFileBase file)
 		{
 			if (ModelState.IsValid)
@@ -99,6 +104,7 @@ namespace StoreMVC.Controllers
 		}
 
 		// GET: Products/Delete/5
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -113,7 +119,7 @@ namespace StoreMVC.Controllers
 			return View(product);
 		}
 
-		// POST: Products/Delete/5
+		[Authorize(Roles = "Admin, Moderator")]
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id)

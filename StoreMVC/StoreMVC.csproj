@@ -305,6 +305,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom.css" />
+    <Content Include="Content\gridStyle.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -459,9 +460,9 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Home\AdminPanel.cshtml" />
-    <Content Include="Views\Home\ModeratorPanel.cshtml" />
-    <Content Include="Views\Home\Cabinet.cshtml" />
+    <Content Include="Views\Account\AdminPanel.cshtml" />
+    <Content Include="Views\Account\ModeratorPanel.cshtml" />
+    <Content Include="Views\Account\Cabinet.cshtml" />
     <Content Include="Views\Products\_ProductsDataPartial.cshtml" />
     <Content Include="Views\Products\Upload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ImageTemplate.cshtml" />

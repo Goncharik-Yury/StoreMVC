@@ -13,49 +13,64 @@
 </head>
 <body>
 	@{
-		var ajaxOptions = new AjaxOptions()
+			var ajaxOptions = new AjaxOptions()
+			{
+				UpdateTargetId = "tabledata",
+				Url = Url.Action("ProductsDataPartial"),
+				LoadingElementId = "loadingIndicator",
+				OnFailure = "OnFailure",
+			};
+		}
+		@using (Ajax.BeginForm(ajaxOptions))
 		{
-			UpdateTargetId = "tabledata",
-			Url = Url.Action("ProductsDataPartial"),
-			LoadingElementId = "loadingIndicator",
-			OnFailure = "OnFailure",
-		};
-	}
-	@using (Ajax.BeginForm(ajaxOptions))
-	{
-		<table class="table">
-			<thead>
-				<tr>
-					<th>
-						@Html.DisplayNameFor(model => model.Name)
-					</th>
-					<th>
-						@Html.DisplayNameFor(model => model.Description)
-					</th>
-					<th>
-						@Html.DisplayNameFor(model => model.Price)
-					</th>
-					<th>
-						@Html.DisplayNameFor(model => model.Category)
-					</th>
-					<th></th>
-				</tr>
-			</thead>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Description)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Price)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Category)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
 
-			<tbody id="tabledata">
-				@Html.Action("ProductsDataPartial")
-			</tbody>
-		</table>
+				<tbody id="tabledata">
+					@Html.Action("ProductsDataPartial")
+				</tbody>
+			</table>
+		}
+		@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+		{
+			<span style="margin-right: 5px; float: left;">
+				@Html.ActionLink("Create New", "Create")
+			</span>
+		}
+
+		&nbsp;&nbsp;
+		<span>
+			@Ajax.ActionLink("Refresh", "ProductsDataPartial", ajaxOptions)
+		</span>
+		&nbsp;&nbsp;
+		<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
+
+	@*@section styles
+	{
+		<link href="~/content/gridStyle.css" rel="stylesheet" />
 	}
-	<span style="margin-right: 5px; float: left;">
-		@Html.ActionLink("Create New", "Create")
-	</span>
-	&nbsp;&nbsp;
-	<span>
-		@Ajax.ActionLink("Refresh", "ProductsDataPartial", ajaxOptions)
-	</span>
-	&nbsp;&nbsp;
-	<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
+
+	@{
+		var grid = new WebGrid(source: Model, rowsPerPage: 6);
+	}
+
+	@grid.GetHtml(htmlAttributes: new { cellpadding = "66px", cellspacing = "60px" })*@
 
 	@section scripts
 		{

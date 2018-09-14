@@ -8,6 +8,7 @@
 	@Styles.Render("~/Content/css")
 	@*@Styles.Render("~/Content/bootstrap")*@
 	@Scripts.Render("~/bundles/modernizr")
+	@RenderSection("styles", required: false)
 </head>
 <body>
 	@Html.Partial("_NavigationTopPartial")
