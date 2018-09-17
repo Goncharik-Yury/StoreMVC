@@ -219,12 +219,14 @@ namespace StoreMVC.Controllers
 			//var membership = (SimpleMembershipProvider)Membership.Provider;
 
 			//int totalUsers;
-			//membership.GetAllUsers(0, 5, out totalUsers);
-			//var users = Membership.GetAllUsers();
-
+			////var users
 			//var users = membership.GetAllUsers(0, 5, out totalUsers);
 
-			//List<MembershipUser> userList = new List<MembershipUser>();
+			//	//var users = Membership.GetAllUsers();
+
+			//	//var users = membership.GetAllUsers(0, 5, out totalUsers);
+
+			//	List<MembershipUser> userList = new List<MembershipUser>();
 			//foreach (MembershipUser user in users)
 			//{
 			//	userList.Add(user);
@@ -234,7 +236,7 @@ namespace StoreMVC.Controllers
 			return View();
 		}
 
-		[Authorize(Roles = "Admin, Moderator")] // К данному методу действия могут получать доступ только пользователи с ролью Admin и Moderator
+		//[Authorize(Roles = "Admin, Moderator")] // К данному методу действия могут получать доступ только пользователи с ролью Admin и Moderator
 		public ActionResult ModeratorPanel()
 		{
 			return View();

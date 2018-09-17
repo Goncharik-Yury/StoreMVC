@@ -1,34 +1,52 @@
 ﻿@if (Request.IsAuthenticated)
 {
-	<text>
-		@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-
-		@if (User.IsInRole("Admin"))
-		{
-			@Html.ActionLink("Admin Panel", "AdminPanel", "Account", routeValues: null, htmlAttributes: new { id = "AdminPanel" })
-		}
-		else
-		if (User.IsInRole("Moderator"))
-		{
-			@Html.ActionLink("Moderator Panel", "ModeratorPanel", "Account", routeValues: null, htmlAttributes: new { id = "ModeratorPanel" })
-		}
-		else
-		{
-			@Html.ActionLink("Cabinet", "Cabinet", "Account", routeValues: null, htmlAttributes: new { id = "Cabinet" })
-		}
-
-		@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-		{
-			@Html.AntiForgeryToken()
-			<a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-		}
-	</text>
+	<div class="btn-group">
+		<button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">@User.Identity.Name <span class="caret"></span></button>
+		<ul class="dropdown-menu" role="menu">
+			<li>
+				@Html.ActionLink("Settings", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+			</li>
+			@if (User.IsInRole("Admin"))
+			{
+				<li>
+					@Html.ActionLink("Admin Panel", "AdminPanel", "Account", routeValues: null, htmlAttributes: new { id = "AdminPanel" })
+				</li>
+			}
+			else
+			if (User.IsInRole("Moderator"))
+			{
+				<li>
+					@Html.ActionLink("Moderator Panel", "ModeratorPanel", "Account", routeValues: null, htmlAttributes: new { id = "ModeratorPanel" })
+				</li>
+			}
+			else
+			{
+				<li>
+					@Html.ActionLink("Cabinet", "Cabinet", "Account", routeValues: null, htmlAttributes: new { id = "Cabinet" })
+				</li>
+			}
+			<li>
+				<span>
+					@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+					{
+						@Html.AntiForgeryToken()
+						<a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+					}
+				</span>
+			</li>
+		</ul>
+		@*<span class="glyphicon glyphicon-cog" />*@
+	</div>
 }
 else
 {
 
-	@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+	<div class="btn btn-link">
+		@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+	</div>
 	@:&nbsp;
-	@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+	<div class="btn btn-link">
+		@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+	</div>
 
 }

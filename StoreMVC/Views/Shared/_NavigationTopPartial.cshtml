@@ -20,13 +20,10 @@
 				<li>@Html.ActionLink("About", "About", "Home")</li>
 				<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
 				@*<li>@Html.ActionLink("Upload", "Upload", "Products")</li>*@
-				<li>
-					<section id="login">
-						@Html.Partial("_LoginPartial")
-					</section>
-				</li>
 			</ul>
-
+			<div id="login" class="navbar-form navbar-right">
+				@Html.Partial("_LoginPartial")
+			</div>
 		</div>
 	</div>
 </div>

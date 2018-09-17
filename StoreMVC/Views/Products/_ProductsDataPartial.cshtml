@@ -2,33 +2,42 @@
 
 @foreach (var item in Model)
 {
-	<tr>
-		<td>
-			@Html.DisplayFor(modelItem => item.Name)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Description)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Price)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Category)
-		</td>
-		<td>
-			@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-			{
+	<div class="row">
+		<div class="col-md-3">
+			<a href="@Url.Action("Details", new { id = item.ProductId })">
+				<img src="@Html.DisplayFor(modelItem => item.imgName)" class="img-responsive img-rounded" />
+			</a>
+		</div>
+		<div class="col-md-9">
+			<b>@Html.ActionLink(item.Name, "Details", new { id = item.ProductId })</b>
+			<div>
+				@Html.DisplayFor(modelItem => item.Description)
+			</div>
+			<br />
+			<div>
+				<b>Цена: @Html.DisplayFor(modelItem => item.Price) p.</b>
+			</div>
+			@*<div>
+					@Html.DisplayFor(modelItem => item.Category)
+				</div>*@
+			<br />
+			<div>
+				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+					{*@
 				@Html.ActionLink("Edit", "Edit", new { id = item.ProductId });
-				@:|
-			}
+				@*@:|*@
+				@*  }*@
 
-			@Html.ActionLink("Details", "Details", new { id = item.ProductId })
-
-			@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-			{
-				@: |
+				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+					{*@
+				@*@: |*@
 				@Html.ActionLink("Delete", "Delete", new { id = item.ProductId });
-			}
-		</td>
-	</tr>
+				@*  }*@
+			</div>
+		</div>
+
+
+	</div>
+	<hr />
+	<br />
 }

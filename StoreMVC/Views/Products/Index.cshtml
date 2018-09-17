@@ -13,19 +13,36 @@
 </head>
 <body>
 	@{
-			var ajaxOptions = new AjaxOptions()
-			{
-				UpdateTargetId = "tabledata",
-				Url = Url.Action("ProductsDataPartial"),
-				LoadingElementId = "loadingIndicator",
-				OnFailure = "OnFailure",
-			};
-		}
-		@using (Ajax.BeginForm(ajaxOptions))
+		var ajaxOptions = new AjaxOptions()
 		{
-			<table class="table">
-				<thead>
+			UpdateTargetId = "tabledata",
+			Url = Url.Action("ProductsDataPartial"),
+			LoadingElementId = "loadingIndicator",
+			OnFailure = "OnFailure",
+		};
+	}
+	@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+		{*@
+	<span style="margin-right: 5px; float: left;">
+		@Html.ActionLink("Add", "Create")
+	</span>
+	@*  }*@
+
+	&nbsp;&nbsp;
+	<span>
+		@Ajax.ActionLink("Refresh", "ProductsDataPartial", ajaxOptions)
+	</span>
+	&nbsp;&nbsp;
+	<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
+	<br /><br /><br />
+	@using (Ajax.BeginForm(ajaxOptions))
+	{
+		<table class="table">
+			@*<thead>
 					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.imgName)
+						</th>
 						<th>
 							@Html.DisplayNameFor(model => model.Name)
 						</th>
@@ -38,39 +55,25 @@
 						<th>
 							@Html.DisplayNameFor(model => model.Category)
 						</th>
-						<th></th>
 					</tr>
-				</thead>
+				</thead>*@
 
-				<tbody id="tabledata">
-					@Html.Action("ProductsDataPartial")
-				</tbody>
-			</table>
-		}
-		@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-		{
-			<span style="margin-right: 5px; float: left;">
-				@Html.ActionLink("Create New", "Create")
-			</span>
-		}
-
-		&nbsp;&nbsp;
-		<span>
-			@Ajax.ActionLink("Refresh", "ProductsDataPartial", ajaxOptions)
-		</span>
-		&nbsp;&nbsp;
-		<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
+			<tbody id="tabledata">
+				@Html.Action("ProductsDataPartial")
+			</tbody>
+		</table>
+	}
 
 	@*@section styles
-	{
-		<link href="~/content/gridStyle.css" rel="stylesheet" />
-	}
+		{
+			<link href="~/content/gridStyle.css" rel="stylesheet" />
+		}
 
-	@{
-		var grid = new WebGrid(source: Model, rowsPerPage: 6);
-	}
+		@{
+			var grid = new WebGrid(source: Model, rowsPerPage: 6);
+		}
 
-	@grid.GetHtml(htmlAttributes: new { cellpadding = "66px", cellspacing = "60px" })*@
+		@grid.GetHtml(htmlAttributes: new { cellpadding = "66px", cellspacing = "60px" })*@
 
 	@section scripts
 		{

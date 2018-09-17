@@ -42,7 +42,7 @@ namespace StoreMVC.Controllers
 
 
 		// GET: Products/Create
-		[Authorize(Roles = "Admin, Moderator")]
+		//[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Create()
 		{
 			return View();
@@ -53,7 +53,7 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Authorize(Roles = "Admin, Moderator")]
+		//[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Create([Bind(Include = "ProductId,Name,Description,Price,Category")] Product product, HttpPostedFileBase file)
 		{
 			if (ModelState.IsValid)
@@ -68,7 +68,7 @@ namespace StoreMVC.Controllers
 		}
 
 		// GET: Products/Edit/5
-		[Authorize(Roles = "Admin, Moderator")]
+		//[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Edit(int? id)
 		{
 			if (id == null)
@@ -80,7 +80,7 @@ namespace StoreMVC.Controllers
 			{
 				return HttpNotFound();
 			}
-			
+
 			return View(product);
 		}
 
@@ -89,22 +89,26 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Authorize(Roles = "Admin, Moderator")]
-		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category")] Product product, HttpPostedFileBase file)
+		//[Authorize(Roles = "Admin, Moderator")]
+		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category,imgName")] Product product, HttpPostedFileBase file)
 		{
 			if (ModelState.IsValid)
 			{
-				product.imgName = UploadImage(file);
+				if (file != null) // ????????????????????????????????????????????????????????????????????????????????????????????????????????????
+				{
+					product.imgName = UploadImage(file);
+				}
+
 				db.Entry(product).State = EntityState.Modified;
 				db.SaveChanges();
 				return RedirectToAction("Index");
 			}
-			
+
 			return View(product);
 		}
 
 		// GET: Products/Delete/5
-		[Authorize(Roles = "Admin, Moderator")]
+		//[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -119,7 +123,7 @@ namespace StoreMVC.Controllers
 			return View(product);
 		}
 
-		[Authorize(Roles = "Admin, Moderator")]
+		//[Authorize(Roles = "Admin, Moderator")]
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id)
@@ -153,31 +157,28 @@ namespace StoreMVC.Controllers
 			string filePath = Server.MapPath("~" + imagesDirectoryPath);
 			string fileName = "default.png";
 
-			if (file != null)
+			Image image = null;
+			try
 			{
-				Image image = null;
-				try
-				{
-					image = Image.FromStream(file.InputStream);
-				}
-				catch (Exception ex)
-				{
-					Debug.WriteLine("File to Image convertation exception" + ex);
-					return filePath + fileName;
-				}
-
-				fileName = Path.GetFileName(file.FileName);
-
-				do
-					fileName = String.Format(@"{0}{1}", Guid.NewGuid(), Path.GetExtension(file.FileName));
-				while (System.IO.File.Exists(filePath + fileName));
-
-				int requiredHeight = 500;
-				int requiredWidth = 500;
-
-				image = ImageScale(image, requiredHeight, requiredWidth);
-				image.Save(filePath + fileName);
+				image = Image.FromStream(file.InputStream);
 			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine("File to Image convertation exception" + ex);
+				return filePath + fileName;
+			}
+
+			fileName = Path.GetFileName(file.FileName);
+
+			do
+				fileName = String.Format(@"{0}{1}", Guid.NewGuid(), Path.GetExtension(file.FileName));
+			while (System.IO.File.Exists(filePath + fileName));
+
+			int requiredHeight = 500;
+			int requiredWidth = 500;
+
+			image = ImageScale(image, requiredHeight, requiredWidth);
+			image.Save(filePath + fileName);
 			return fileName;
 		}
 
