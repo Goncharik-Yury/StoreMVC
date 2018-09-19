@@ -8,9 +8,11 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
+using System.Drawing.Imaging;
 
 using StoreMVC.Models;
 using StoreMVC.Filters;
+using StoreMVC.Util;
 
 namespace StoreMVC.Controllers
 {
@@ -78,6 +80,10 @@ namespace StoreMVC.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Register(RegisterModel model)
 		{
+			if (model.Captcha != (string)Session["code"])
+			{
+				ModelState.AddModelError("Captcha", "Текст с картинки введен неверно");
+			}
 			if (ModelState.IsValid)
 			{
 				// Attempt to register the user
@@ -242,6 +248,22 @@ namespace StoreMVC.Controllers
 			return View();
 		}
 		#endregion
+
+		[AllowAnonymous]
+		public ActionResult Captcha()
+		{
+			string code = new Random(DateTime.Now.Millisecond).Next(1111, 9999).ToString();
+			Session["code"] = code;
+			CaptchaImage captcha = new CaptchaImage(code, 110, 50);
+
+			this.Response.Clear();
+			this.Response.ContentType = "image/jpeg";
+
+			captcha.Image.Save(this.Response.OutputStream, ImageFormat.Jpeg);
+
+			captcha.Dispose();
+			return null;
+		}
 	}
 }
 

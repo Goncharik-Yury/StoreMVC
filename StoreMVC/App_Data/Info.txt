@@ -4,3 +4,7 @@ in Package Manager Console:
 	enable-migrations
 	Add-Migration "MigrateDB"
 	Update-Database
+	Remove-Migration
+
+Removing and Resetting Migrations
+	https://weblog.west-wind.com/posts/2016/Jan/13/Resetting-Entity-Framework-Migrations-to-a-clean-Slate#Removing-and-Resetting-Migrations

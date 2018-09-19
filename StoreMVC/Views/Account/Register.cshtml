@@ -1,37 +1,45 @@
 ﻿@model StoreMVC.Models.RegisterModel
 @{
-    ViewBag.Title = "Register";
+	ViewBag.Title = "Register";
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
+	<h1>@ViewBag.Title.</h1>
+	<h2>Create a new account.</h2>
 </hgroup>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	@Html.ValidationSummary()
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
+	<fieldset>
+		<legend>Registration Form</legend>
+		<div>
+			@Html.LabelFor(m => m.UserName)
+			@Html.TextBoxFor(m => m.UserName)
+		</div>
+		<div>
+			@Html.LabelFor(m => m.Password)
+			@Html.PasswordFor(m => m.Password)
+		</div>
+		<div>
+			@Html.LabelFor(m => m.ConfirmPassword)
+			@Html.PasswordFor(m => m.ConfirmPassword)
+		</div>
+		<div class="editor-label">
+			@Html.LabelFor(model => model.Captcha)
+		</div>
+		<img src='@Url.Action("Captcha", "Account")' alt='captcha' />
+		<div class="editor-field">
+			@Html.EditorFor(model => model.Captcha)
+			@Html.ValidationMessageFor(model => model.Captcha)
+		</div>
+
+		<input type="submit" value="Register" />
+	</fieldset>
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/bundles/jqueryval")
 }

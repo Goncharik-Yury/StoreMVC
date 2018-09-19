@@ -45,19 +45,19 @@ namespace StoreMVC.Filters
 					// 4 параметр - autoCreateTables автоматическое создание таблиц если они не существуют в базе
 					WebSecurity.InitializeDatabaseConnection("DBStoreMVC", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
-					SimpleRoleProvider roles = (SimpleRoleProvider)Roles.Provider;
-					SimpleMembershipProvider membership = (SimpleMembershipProvider)Membership.Provider;
+					//SimpleRoleProvider roles = (SimpleRoleProvider)Roles.Provider;
+					//SimpleMembershipProvider membership = (SimpleMembershipProvider)Membership.Provider;
 
 					// Проверка наличия роли Admin
-					if (!roles.RoleExists("Admin"))
-					{
-						roles.CreateRole("Admin");
-					}
-					// Проверка наличия роли Moderator
-					if (!roles.RoleExists("Moderator"))
-					{
-						roles.CreateRole("Moderator");
-					}
+					//if (!roles.RoleExists("Admin"))
+					//{
+					//	roles.CreateRole("Admin");
+					//}
+					//// Проверка наличия роли Moderator
+					//if (!roles.RoleExists("Moderator"))
+					//{
+					//	roles.CreateRole("Moderator");
+					//}
 					
 					// Поиск пользователя с логином admin
 					//if (membership.GetUser("admin", false) == null)

@@ -16,64 +16,36 @@
 		var ajaxOptions = new AjaxOptions()
 		{
 			UpdateTargetId = "tabledata",
-			Url = Url.Action("ProductsDataPartial"),
+			Url = Url.Action("ProductsSearch"),
 			LoadingElementId = "loadingIndicator",
-			OnFailure = "OnFailure",
+			OnFailure = "OnFailure"
 		};
 	}
 	@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
 		{*@
 	<span style="margin-right: 5px; float: left;">
-		@Html.ActionLink("Add", "Create")
+		@Html.ActionLink("Add new product", "Create", FormMethod.Post, new { @class = "btn btn-default" })
 	</span>
+	<br /><br />
 	@*  }*@
 
-	&nbsp;&nbsp;
-	<span>
-		@Ajax.ActionLink("Refresh", "ProductsDataPartial", ajaxOptions)
-	</span>
-	&nbsp;&nbsp;
-	<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
-	<br /><br /><br />
-	@using (Ajax.BeginForm(ajaxOptions))
-	{
-		<table class="table">
-			@*<thead>
-					<tr>
-						<th>
-							@Html.DisplayNameFor(model => model.imgName)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Name)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Description)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Price)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Category)
-						</th>
-					</tr>
-				</thead>*@
-
-			<tbody id="tabledata">
-				@Html.Action("ProductsDataPartial")
-			</tbody>
-		</table>
-	}
-
-	@*@section styles
+	<div>
+		@*@using (Ajax.BeginForm("ProductsSearch", "", ajaxOptions, new { @class = "bs-example bs-example-form" }))*@
+		@using (Ajax.BeginForm(ajaxOptions))
 		{
-			<link href="~/content/gridStyle.css" rel="stylesheet" />
+			<div>
+				<input type="text" name="name" placeholder=" Search..." />
+				<button type="submit">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</div>
 		}
-
-		@{
-			var grid = new WebGrid(source: Model, rowsPerPage: 6);
-		}
-
-		@grid.GetHtml(htmlAttributes: new { cellpadding = "66px", cellspacing = "60px" })*@
+		<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
+		<br />
+		<div id="tabledata">
+			@Html.Action("ProductsDataPartial")
+		</div>
+	</div>
 
 	@section scripts
 		{

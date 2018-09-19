@@ -231,64 +231,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808081213206_InitialCreate.cs" />
-    <Compile Include="Migrations\201808081213206_InitialCreate.Designer.cs">
-      <DependentUpon>201808081213206_InitialCreate.cs</DependentUpon>
+    <Compile Include="Controllers\CustomerModelBinder.cs" />
+    <Compile Include="Migrations\201809191353269_Initial.cs" />
+    <Compile Include="Migrations\201809191353269_Initial.Designer.cs">
+      <DependentUpon>201809191353269_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808221720205_MigrateDB.cs" />
-    <Compile Include="Migrations\201808221720205_MigrateDB.Designer.cs">
-      <DependentUpon>201808221720205_MigrateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808221725308_MigrateDB1.cs" />
-    <Compile Include="Migrations\201808221725308_MigrateDB1.Designer.cs">
-      <DependentUpon>201808221725308_MigrateDB1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808231409005_MigrateDB2.cs" />
-    <Compile Include="Migrations\201808231409005_MigrateDB2.Designer.cs">
-      <DependentUpon>201808231409005_MigrateDB2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808231455593_MigrateDB3.cs" />
-    <Compile Include="Migrations\201808231455593_MigrateDB3.Designer.cs">
-      <DependentUpon>201808231455593_MigrateDB3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808231503358_MigrateDB4.cs" />
-    <Compile Include="Migrations\201808231503358_MigrateDB4.Designer.cs">
-      <DependentUpon>201808231503358_MigrateDB4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808231524336_MigrateDB5.cs" />
-    <Compile Include="Migrations\201808231524336_MigrateDB5.Designer.cs">
-      <DependentUpon>201808231524336_MigrateDB5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808231931349_MigrateDB6.cs" />
-    <Compile Include="Migrations\201808231931349_MigrateDB6.Designer.cs">
-      <DependentUpon>201808231931349_MigrateDB6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808261602355_MigrateDB7.cs" />
-    <Compile Include="Migrations\201808261602355_MigrateDB7.Designer.cs">
-      <DependentUpon>201808261602355_MigrateDB7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808311103006_MigrateDB8.cs" />
-    <Compile Include="Migrations\201808311103006_MigrateDB8.Designer.cs">
-      <DependentUpon>201808311103006_MigrateDB8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809011300332_MigrateDB9.cs" />
-    <Compile Include="Migrations\201809011300332_MigrateDB9.Designer.cs">
-      <DependentUpon>201809011300332_MigrateDB9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809011358396_MigrateDB10.cs" />
-    <Compile Include="Migrations\201809011358396_MigrateDB10.Designer.cs">
-      <DependentUpon>201809011358396_MigrateDB10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809091402309_MigrateDB11.cs" />
-    <Compile Include="Migrations\201809091402309_MigrateDB11.Designer.cs">
-      <DependentUpon>201809091402309_MigrateDB11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809111645096_MigrateDB12.cs" />
-    <Compile Include="Migrations\201809111645096_MigrateDB12.Designer.cs">
-      <DependentUpon>201809111645096_MigrateDB12.cs</DependentUpon>
+    <Compile Include="Migrations\201809191358479_MigrateDB.cs" />
+    <Compile Include="Migrations\201809191358479_MigrateDB.Designer.cs">
+      <DependentUpon>201809191358479_MigrateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Controllers\CustomerModelBinder.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DBInitializer.cs" />
@@ -296,6 +248,8 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CaptchaImage.cs" />
+    <Compile Include="Util\ImageFuctionality.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Data\DeletedCode.cs" />
@@ -467,6 +421,7 @@
     <Content Include="Views\Products\Upload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ImageTemplate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ImageTemplate.cshtml" />
+    <Content Include="Views\Products\_ProductsSearchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -481,47 +436,11 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808081213206_InitialCreate.resx">
-      <DependentUpon>201808081213206_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809191353269_Initial.resx">
+      <DependentUpon>201809191353269_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808221720205_MigrateDB.resx">
-      <DependentUpon>201808221720205_MigrateDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808221725308_MigrateDB1.resx">
-      <DependentUpon>201808221725308_MigrateDB1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808231409005_MigrateDB2.resx">
-      <DependentUpon>201808231409005_MigrateDB2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808231455593_MigrateDB3.resx">
-      <DependentUpon>201808231455593_MigrateDB3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808231503358_MigrateDB4.resx">
-      <DependentUpon>201808231503358_MigrateDB4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808231524336_MigrateDB5.resx">
-      <DependentUpon>201808231524336_MigrateDB5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808231931349_MigrateDB6.resx">
-      <DependentUpon>201808231931349_MigrateDB6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808261602355_MigrateDB7.resx">
-      <DependentUpon>201808261602355_MigrateDB7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808311103006_MigrateDB8.resx">
-      <DependentUpon>201808311103006_MigrateDB8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809011300332_MigrateDB9.resx">
-      <DependentUpon>201809011300332_MigrateDB9.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809011358396_MigrateDB10.resx">
-      <DependentUpon>201809011358396_MigrateDB10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809091402309_MigrateDB11.resx">
-      <DependentUpon>201809091402309_MigrateDB11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809111645096_MigrateDB12.resx">
-      <DependentUpon>201809111645096_MigrateDB12.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809191358479_MigrateDB.resx">
+      <DependentUpon>201809191358479_MigrateDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

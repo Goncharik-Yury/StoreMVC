@@ -1,0 +1,11 @@
+﻿@model IEnumerable<StoreMVC.Models.Product>
+
+<div id="searchresults">
+	<h3>Все продукты с именем : @Model.First().Name</h3>
+	<ul>
+		@foreach (var item in Model)
+		{
+			<li>@item.Name</li>
+		}
+	</ul>
+</div>

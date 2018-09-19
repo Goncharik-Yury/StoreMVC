@@ -10,7 +10,6 @@ namespace StoreMVC.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "StoreMVC.Models.DBStoreMVC";
         }
 
         protected override void Seed(StoreMVC.Models.DBStoreMVC context)

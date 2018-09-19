@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<StoreMVC.Models.Product>
-
+@*@<table class="table">
+	<tbody id="tabledata">*@
 @foreach (var item in Model)
 {
+	<br />
+	<hr />
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<a href="@Url.Action("Details", new { id = item.ProductId })">
 				<img src="@Html.DisplayFor(modelItem => item.imgName)" class="img-responsive img-rounded" />
 			</a>
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-10">
 			<b>@Html.ActionLink(item.Name, "Details", new { id = item.ProductId })</b>
 			<div>
 				@Html.DisplayFor(modelItem => item.Description)
@@ -35,9 +38,7 @@
 				@*  }*@
 			</div>
 		</div>
-
-
 	</div>
-	<hr />
-	<br />
 }
+@*</tbody>
+	</table>*@
