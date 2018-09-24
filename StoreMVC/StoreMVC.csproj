@@ -232,13 +232,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CustomerModelBinder.cs" />
-    <Compile Include="Migrations\201809191353269_Initial.cs" />
-    <Compile Include="Migrations\201809191353269_Initial.Designer.cs">
-      <DependentUpon>201809191353269_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201809201201142_InitialCreate.cs" />
+    <Compile Include="Migrations\201809201201142_InitialCreate.Designer.cs">
+      <DependentUpon>201809201201142_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809191358479_MigrateDB.cs" />
-    <Compile Include="Migrations\201809191358479_MigrateDB.Designer.cs">
-      <DependentUpon>201809191358479_MigrateDB.cs</DependentUpon>
+    <Compile Include="Migrations\201809201202482_migrateDB.cs" />
+    <Compile Include="Migrations\201809201202482_migrateDB.Designer.cs">
+      <DependentUpon>201809201202482_migrateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -421,7 +421,9 @@
     <Content Include="Views\Products\Upload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ImageTemplate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ImageTemplate.cshtml" />
-    <Content Include="Views\Products\_ProductsSearchPartial.cshtml" />
+    <Content Include="Views\Shared\_BackToListButtonPartial.cshtml" />
+    <Content Include="Views\Shared\_EditButtonPartial.cshtml" />
+    <Content Include="Views\Shared\_DeleteButtonPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -436,11 +438,11 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809191353269_Initial.resx">
-      <DependentUpon>201809191353269_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809201201142_InitialCreate.resx">
+      <DependentUpon>201809201201142_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809191358479_MigrateDB.resx">
-      <DependentUpon>201809191358479_MigrateDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809201202482_migrateDB.resx">
+      <DependentUpon>201809201202482_migrateDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

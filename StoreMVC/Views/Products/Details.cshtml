@@ -12,6 +12,7 @@
 	<title>Details</title>
 </head>
 <body>
+	@Html.Partial("_BackToListButtonPartial")<br/><br />
 	<div class="row">
 		<div class="col-md-3">
 			<img src=@Html.DisplayFor(model => model.imgName) class="img-responsive img-rounded" />
@@ -30,15 +31,13 @@
 			</div>
 			<br />
 			@*<div>
-				@Html.DisplayFor(model => model.Category)
-			</div>*@
+					@Html.DisplayFor(model => model.Category)
+				</div>*@
 			<div>
-				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))*@
-				@*  *@{
-				@Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })
-				@*@:|*@
-				@*  }*@
-				@Html.ActionLink("Back to List", "Index")
+				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+				{
+					@Html.Partial("_EditButtonPartial", Model.ProductId )
+				}
 			</div>
 		</div>
 	</div>

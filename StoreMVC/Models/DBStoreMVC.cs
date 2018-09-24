@@ -22,6 +22,6 @@ namespace StoreMVC.Models
 
 		public DbSet<UserProfile> UserProfiles { get; set; }
 
-		//public DbSet<Category> Categories { get; set; }
+		public DbSet<Category> Categories { get; set; }
 	}
 }

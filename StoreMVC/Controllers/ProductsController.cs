@@ -20,7 +20,8 @@ namespace StoreMVC.Controllers
 		// GET: Products
 		public ActionResult Index()
 		{
-			return View(db.Products.ToList());
+			var products = db.Products.Include(o => o.Category);
+			return View(products.ToList());
 		}
 
 		// GET: Products/Details/5
@@ -41,10 +42,10 @@ namespace StoreMVC.Controllers
 
 
 		// GET: Products/Create
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Create()
 		{
-			
+			ViewBag.ProductCategory = new SelectList(db.Categories, "CategoryName", "CategoryName");
 			return View();
 		}
 
@@ -53,7 +54,7 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Create([Bind(Include = "ProductId,Name,Description,Price,Category")] Product product, HttpPostedFileBase file)
 		{
 			if (ModelState.IsValid)
@@ -68,7 +69,7 @@ namespace StoreMVC.Controllers
 		}
 
 		// GET: Products/Edit/5
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Edit(int? id)
 		{
 
@@ -81,7 +82,8 @@ namespace StoreMVC.Controllers
 			{
 				return HttpNotFound();
 			}
-			
+
+			ViewBag.ProductCategory = new SelectList(db.Categories, "CategoryName", "CategoryName");
 
 			return View(product);
 		}
@@ -91,8 +93,8 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		//[Authorize(Roles = "Admin, Moderator")]
-		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category,imgName")] Product product, HttpPostedFileBase file)
+		[Authorize(Roles = "Admin, Moderator")]
+		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category,imgName")] Product product, HttpPostedFileBase file, string imgName_old)
 		{
 
 			if (ModelState.IsValid)
@@ -100,6 +102,7 @@ namespace StoreMVC.Controllers
 				if (file != null) // ????????????????????????????????????????????????????????????????????????????????????????????????????????????
 				{
 					product.imgName = ImageFuctionality.UploadImage(file, Server.MapPath("~"), imagesDirectoryPath);
+					ImageFuctionality.DeleteImageFromServer(imgName_old, Server.MapPath("~"), imagesDirectoryPath);
 				}
 
 				db.Entry(product).State = EntityState.Modified;
@@ -111,7 +114,7 @@ namespace StoreMVC.Controllers
 		}
 
 		// GET: Products/Delete/5
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -126,7 +129,7 @@ namespace StoreMVC.Controllers
 			return View(product);
 		}
 
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id)
@@ -162,7 +165,6 @@ namespace StoreMVC.Controllers
 			{
 				return HttpNotFound();
 			}
-			//return PartialView("_ProductsSearchPartial", products);
 			return PartialView("_ProductsDataPartial", products);
 		}
 

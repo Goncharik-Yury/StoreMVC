@@ -242,7 +242,7 @@ namespace StoreMVC.Controllers
 			return View();
 		}
 
-		//[Authorize(Roles = "Admin, Moderator")] // К данному методу действия могут получать доступ только пользователи с ролью Admin и Moderator
+		[Authorize(Roles = "Moderator")] // К данному методу действия могут получать доступ только пользователи с ролью Admin и Moderator
 		public ActionResult ModeratorPanel()
 		{
 			return View();

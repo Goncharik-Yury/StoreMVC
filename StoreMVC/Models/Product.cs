@@ -25,19 +25,19 @@ namespace StoreMVC.Models
 		public decimal Price { get; set; }
 
 		[Display(Name = "Category")]
-		public string Category { get; set; }
+		public Category Category { get; set; }
 
 		[Display(Name = "Product image")]
 		[UIHint("ImageTemplate")]
 		public string imgName { get; set; }
 	}
 
-	//public class Category
-	//{
-	//	[Key]
-	//	[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-	//	[Required(ErrorMessage = "Это поле обязательно для заполнения")]
-	//	[StringLength(20, ErrorMessage = "Имя категории не должно превышать 20 символов")]
-	//	public string CategoryName { get; set; }
-	//}
+	public class Category
+	{
+		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+		[Required(ErrorMessage = "Это поле обязательно для заполнения")]
+		[StringLength(20, ErrorMessage = "Имя категории не должно превышать 20 символов")]
+		public string CategoryName { get; set; }
+	}
 }

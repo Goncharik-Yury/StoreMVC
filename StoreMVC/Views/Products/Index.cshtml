@@ -21,13 +21,13 @@
 			OnFailure = "OnFailure"
 		};
 	}
-	@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-		{*@
-	<span style="margin-right: 5px; float: left;">
-		@Html.ActionLink("Add new product", "Create", FormMethod.Post, new { @class = "btn btn-default" })
-	</span>
-	<br /><br />
-	@*  }*@
+	@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+	{
+		<span style="margin-right: 5px; float: left;">
+			@Html.ActionLink("Add new product", "Create", FormMethod.Post, new { @class = "btn btn-default" })
+		</span>
+		<br /><br />
+	}
 
 	<div>
 		@*@using (Ajax.BeginForm("ProductsSearch", "", ajaxOptions, new { @class = "bs-example bs-example-form" }))*@

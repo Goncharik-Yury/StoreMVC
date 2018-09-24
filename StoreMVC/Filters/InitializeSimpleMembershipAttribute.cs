@@ -45,31 +45,36 @@ namespace StoreMVC.Filters
 					// 4 параметр - autoCreateTables автоматическое создание таблиц если они не существуют в базе
 					WebSecurity.InitializeDatabaseConnection("DBStoreMVC", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
-					//SimpleRoleProvider roles = (SimpleRoleProvider)Roles.Provider;
-					//SimpleMembershipProvider membership = (SimpleMembershipProvider)Membership.Provider;
+					SimpleRoleProvider roles = (SimpleRoleProvider)Roles.Provider;
+					SimpleMembershipProvider membership = (SimpleMembershipProvider)Membership.Provider;
 
 					// Проверка наличия роли Admin
-					//if (!roles.RoleExists("Admin"))
-					//{
-					//	roles.CreateRole("Admin");
-					//}
-					//// Проверка наличия роли Moderator
-					//if (!roles.RoleExists("Moderator"))
-					//{
-					//	roles.CreateRole("Moderator");
-					//}
-					
+					if (!roles.RoleExists("Admin"))
+					{
+						roles.CreateRole("Admin");
+					}
+					// Проверка наличия роли Moderator
+					if (!roles.RoleExists("Moderator"))
+					{
+						roles.CreateRole("Moderator");
+					}
+
 					// Поиск пользователя с логином admin
-					//if (membership.GetUser("admin", false) == null)
-					//{
-					//	membership.CreateUserAndAccount("admin", "qwe123"); // создание пользователя
-					//	roles.AddUsersToRoles(new[] { "admin" }, new[] { "Admin" }); // установка роли для пользователя
-					//}
-					//if (membership.GetUser("user1", false) == null)
-					//{
-					//	membership.CreateUserAndAccount("user1", "qwe123");
-					//	roles.AddUsersToRoles(new[] { "user1" }, new[] { "Moderator" });
-					//}
+					if (membership.GetUser("admin", false) == null)
+					{
+						membership.CreateUserAndAccount("admin", "qweqwe"); // создание пользователя
+						roles.AddUsersToRoles(new[] { "admin" }, new[] { "Admin" }); // установка роли для пользователя
+					}
+					if (membership.GetUser("moder", false) == null)
+					{
+						membership.CreateUserAndAccount("moder", "qweqwe"); // создание пользователя
+						roles.AddUsersToRoles(new[] { "moder" }, new[] { "Moderator" }); // установка роли для пользователя
+					}
+					if (membership.GetUser("user", false) == null)
+					{
+						membership.CreateUserAndAccount("user", "qweqwe");
+						//roles.AddUsersToRoles(new[] { "user" }, new[] { "Moderator" });
+					}
 				}
 				catch (Exception ex)
 				{

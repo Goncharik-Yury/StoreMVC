@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<StoreMVC.Models.Customer>
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>Index</title>
 </head>
 <body>
 	<table class="table">
@@ -27,15 +27,16 @@
 		{
 			<tr>
 				<td>
-					@Html.DisplayFor(modelItem => item.Name)
+					<a href="@Url.Action("Details", new { id = item.CustomerId })">
+						@Html.DisplayFor(modelItem => item.Name)
+					</a>
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Email)
 				</td>
 				<td>
-					@Html.ActionLink("Edit", "Edit", new { id = item.CustomerId }) |
-					@Html.ActionLink("Details", "Details", new { id = item.CustomerId }) |
-					@Html.ActionLink("Delete", "Delete", new { id = item.CustomerId })
+					@Html.Partial("_EditButtonPartial", item.CustomerId)
+					@Html.Partial("_DeleteButtonPartial", item.CustomerId)
 				</td>
 			</tr>
 		}

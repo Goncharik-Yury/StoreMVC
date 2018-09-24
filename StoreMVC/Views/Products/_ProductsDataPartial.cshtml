@@ -25,17 +25,11 @@
 				</div>*@
 			<br />
 			<div>
-				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-					{*@
-				@Html.ActionLink("Edit", "Edit", new { id = item.ProductId });
-				@*@:|*@
-				@*  }*@
-
-				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-					{*@
-				@*@: |*@
-				@Html.ActionLink("Delete", "Delete", new { id = item.ProductId });
-				@*  }*@
+				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+				{
+					@Html.Partial("_EditButtonPartial", item.ProductId);
+					@Html.Partial("_DeleteButtonPartial", item.ProductId);
+				}
 			</div>
 		</div>
 	</div>
