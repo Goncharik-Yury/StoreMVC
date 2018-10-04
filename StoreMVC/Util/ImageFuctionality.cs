@@ -6,10 +6,11 @@ using System.IO;
 using System.Drawing;
 using System.Diagnostics;
 
-namespace StoreMVC.Util
+namespace StoreMVC.Controllers
 {
 	public static class ImageFuctionality
 	{
+		public static string imagesDirectoryPath = "/Files/Images/";
 		// Uploading files on server
 		public static string UploadImage(HttpPostedFileBase file, string serverMapPath, string imagesDirectoryPath)
 		{
@@ -24,7 +25,7 @@ namespace StoreMVC.Util
 			catch (Exception ex)
 			{
 				Debug.WriteLine("File to Image convertation exception" + ex);
-				return filePath + fileName;
+				return fileName;
 			}
 
 			fileName = Path.GetFileName(file.FileName);

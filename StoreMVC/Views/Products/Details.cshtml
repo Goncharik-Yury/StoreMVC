@@ -34,7 +34,7 @@
 					@Html.DisplayFor(model => model.Category)
 				</div>*@
 			<div>
-				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))*@
 				{
 					@Html.Partial("_EditButtonPartial", Model.ProductId )
 				}

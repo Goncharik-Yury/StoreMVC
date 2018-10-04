@@ -1,29 +1,65 @@
-﻿<!DOCTYPE html>
+﻿@model Dictionary<string, string>
+
+<!DOCTYPE html>
 
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
 	<title>Index</title>
 </head>
-<body>
-	<div>
-		<h3>Home</h3>
+<body style="background-color: rgb(230,230,230)">
+	<br /><br />
+	<div class="container" style="background-color: white">
+		@{
+			foreach (var item in Model)
+			{
+				<a href='@Url.Action("Captcha", "Account")'>
+					<span class="catalog-category-item">@item.Key</span> @*тут остановился*@
+				</a>
+			}
+			@: <div class="row">
+				var i = 0;
+				foreach (var item in Model)
+				{
+
+					if (i > 0 && i % 3 == 0)
+					{
+					@:</div>
+					<br />
+					@:<div class="row">
+					}
+					<div class="col-md-4">
+						<div>
+							<img src="@ViewBag.imagesDirectoryPath@ViewBag.folderName@item.Key@ViewBag.imageExtention"
+								 class="img-responsive img-rounded center-block" style="height: 160px;" />
+						</div>
+						<h4 class="text-center">
+							@item.Value
+						</h4>
+					</div>
+					++i;
+				}
+			@:</div>
+		}
 	</div>
-	<div>
-		<strong>Admin:</strong><br />
-		&emsp;Login: admin<br />
-		&emsp;Pass: qweqwe
-	</div>
-	<div>
-		<strong>Moderator:</strong><br />
-			&emsp;Login: moder<br />
+	@*<div>
+			<h3>Home</h3>
+		</div>
+		<div>
+			<strong>Admin:</strong><br />
+			&emsp;Login: admin<br />
 			&emsp;Pass: qweqwe
-	</div>
-	<div>
-		<strong>User:</strong><br />
-			&emsp;Login: user<br />
-			&emsp;Pass: qweqwe
-	</div>
+		</div>
+		<div>
+			<strong>Moderator:</strong><br />
+				&emsp;Login: moder<br />
+				&emsp;Pass: qweqwe
+		</div>
+		<div>
+			<strong>User:</strong><br />
+				&emsp;Login: user<br />
+				&emsp;Pass: qweqwe
+		</div>*@
 </body>
 </html>
 

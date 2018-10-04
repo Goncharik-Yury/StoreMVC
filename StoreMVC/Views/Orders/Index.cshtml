@@ -41,7 +41,7 @@
 					@Html.DisplayFor(modelItem => item.Date)
 				</td>
 				<td>
-					@Html.Partial("_EditButtonPartial", new { id = item.OrderId })
+					@Html.Partial("_EditButtonPartial", item.OrderId)
 					@Html.Partial("_DeleteButtonPartial", new { id = item.OrderId })
 				</td>
 			</tr>

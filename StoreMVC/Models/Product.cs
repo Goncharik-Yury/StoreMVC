@@ -13,7 +13,7 @@ namespace StoreMVC.Models
 
 		[Display(Name = "Product name")]
 		[Required(ErrorMessage = "Это поле обязательно для заполнения")]
-		[StringLength(40, ErrorMessage = "Имя не должно превышать 40 символов")]
+		[StringLength(100, ErrorMessage = "Имя не должно превышать 100 символов")]
 		public string Name { get; set; }
 
 		[UIHint("MultilineText")]
@@ -24,20 +24,24 @@ namespace StoreMVC.Models
 		//79228162514264337593543950335
 		public decimal Price { get; set; }
 
-		[Display(Name = "Category")]
-		public Category Category { get; set; }
+		[Required(ErrorMessage = "Выберите категорию продукта")]
+		//[Display(Name = "Category")]
+		public String Category { get; set; }
 
 		[Display(Name = "Product image")]
 		[UIHint("ImageTemplate")]
 		public string imgName { get; set; }
 	}
 
-	public class Category
-	{
-		[Key]
-		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-		[Required(ErrorMessage = "Это поле обязательно для заполнения")]
-		[StringLength(20, ErrorMessage = "Имя категории не должно превышать 20 символов")]
-		public string CategoryName { get; set; }
-	}
+	//public class Category
+	//{
+	//	[Key]
+	//	[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+	//	public int CategoryId { get; set; }
+	//	[Required(ErrorMessage = "Это поле обязательно для заполнения")]
+	//	//[StringLength(20, ErrorMessage = "Имя категории не должно превышать 20 символов")]
+	//	//[UIHint("CategoryTemplate")]
+	//	//[Display(Name = "")]
+	//	public string CategoryName { get; set; }
+	//}
 }

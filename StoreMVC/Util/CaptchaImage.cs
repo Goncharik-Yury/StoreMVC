@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace StoreMVC.Util
+namespace StoreMVC.Controllers
 {
 	public class CaptchaImage
 	{

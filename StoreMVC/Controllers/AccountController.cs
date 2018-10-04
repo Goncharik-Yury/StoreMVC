@@ -12,7 +12,6 @@ using System.Drawing.Imaging;
 
 using StoreMVC.Models;
 using StoreMVC.Filters;
-using StoreMVC.Util;
 
 namespace StoreMVC.Controllers
 {

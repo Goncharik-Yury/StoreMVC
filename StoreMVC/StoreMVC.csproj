@@ -232,13 +232,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CustomerModelBinder.cs" />
-    <Compile Include="Migrations\201809201201142_InitialCreate.cs" />
-    <Compile Include="Migrations\201809201201142_InitialCreate.Designer.cs">
-      <DependentUpon>201809201201142_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201809271347114_InitialCreate.cs" />
+    <Compile Include="Migrations\201809271347114_InitialCreate.Designer.cs">
+      <DependentUpon>201809271347114_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809201202482_migrateDB.cs" />
-    <Compile Include="Migrations\201809201202482_migrateDB.Designer.cs">
-      <DependentUpon>201809201202482_migrateDB.cs</DependentUpon>
+    <Compile Include="Migrations\201809271427214_MigrateDB.cs" />
+    <Compile Include="Migrations\201809271427214_MigrateDB.Designer.cs">
+      <DependentUpon>201809271427214_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810021851560_MigrateDB1.cs" />
+    <Compile Include="Migrations\201810021851560_MigrateDB1.Designer.cs">
+      <DependentUpon>201810021851560_MigrateDB1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -249,6 +253,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CaptchaImage.cs" />
+    <Compile Include="Util\ProductsCategories.cs" />
     <Compile Include="Util\ImageFuctionality.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +429,7 @@
     <Content Include="Views\Shared\_BackToListButtonPartial.cshtml" />
     <Content Include="Views\Shared\_EditButtonPartial.cshtml" />
     <Content Include="Views\Shared\_DeleteButtonPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CategoryTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -438,11 +444,14 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809201201142_InitialCreate.resx">
-      <DependentUpon>201809201201142_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809271347114_InitialCreate.resx">
+      <DependentUpon>201809271347114_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809201202482_migrateDB.resx">
-      <DependentUpon>201809201202482_migrateDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809271427214_MigrateDB.resx">
+      <DependentUpon>201809271427214_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810021851560_MigrateDB1.resx">
+      <DependentUpon>201810021851560_MigrateDB1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

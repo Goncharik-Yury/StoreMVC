@@ -12,7 +12,7 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li>@Html.ActionLink("Products", "Index", "Products")</li>
-				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))*@
 				{
 					<li>@Html.ActionLink("Customers", "Index", "Customers")</li>
 					<li>@Html.ActionLink("Orders", "Index", "Orders")</li>

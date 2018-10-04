@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StoreMVC.Models.Product>
+﻿@model IEnumerable<StoreMVC.Models.Product> 
 @*@<table class="table">
 	<tbody id="tabledata">*@
 @foreach (var item in Model)
@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-md-2">
 			<a href="@Url.Action("Details", new { id = item.ProductId })">
-				<img src="@Html.DisplayFor(modelItem => item.imgName)" class="img-responsive img-rounded" />
+				<img src="@Html.DisplayFor(modelItem => item.imgName)" class="img-responsive img-rounded img-thumbnail" />
 			</a>
 		</div>
 		<div class="col-md-10">
@@ -17,15 +17,16 @@
 				@Html.DisplayFor(modelItem => item.Description)
 			</div>
 			<br />
+			@*<div>
+				<i>Categorie: @Html.DisplayTextFor(modelItem => item.Category)</i>
+			</div>*@
 			<div>
 				<b>Цена: @Html.DisplayFor(modelItem => item.Price) p.</b>
 			</div>
-			@*<div>
-					@Html.DisplayFor(modelItem => item.Category)
-				</div>*@
+
 			<br />
 			<div>
-				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))*@
 				{
 					@Html.Partial("_EditButtonPartial", item.ProductId);
 					@Html.Partial("_DeleteButtonPartial", item.ProductId);

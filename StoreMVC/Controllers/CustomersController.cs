@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace StoreMVC.Controllers
 {
-	[Authorize(Roles = "Admin, Moderator")]
+	//[Authorize(Roles = "Admin, Moderator")]
 	public class CustomersController : Controller
     {
         private DBStoreMVC db = new DBStoreMVC();

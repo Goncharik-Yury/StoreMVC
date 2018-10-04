@@ -8,6 +8,7 @@
 
 <html>
 <head>
+	
 	<meta name="viewport" content="width=device-width" />
 	<title>Index</title>
 </head>
@@ -15,41 +16,45 @@
 	@{
 		var ajaxOptions = new AjaxOptions()
 		{
-			UpdateTargetId = "tabledata",
+			UpdateTargetId = "productsList",
 			Url = Url.Action("ProductsSearch"),
 			LoadingElementId = "loadingIndicator",
-			OnFailure = "OnFailure"
+			//OnFailure = "OnFailure"
 		};
 	}
-	@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
-	{
+
+	@*@if (Request.IsAuthenticated)
+	{*@
 		<span style="margin-right: 5px; float: left;">
 			@Html.ActionLink("Add new product", "Create", FormMethod.Post, new { @class = "btn btn-default" })
 		</span>
 		<br /><br />
-	}
+	@*}*@
 
 	<div>
-		@*@using (Ajax.BeginForm("ProductsSearch", "", ajaxOptions, new { @class = "bs-example bs-example-form" }))*@
 		@using (Ajax.BeginForm(ajaxOptions))
 		{
-			<div>
-				<input type="text" name="name" placeholder=" Search..." />
-				<button type="submit">
-					<span class="glyphicon glyphicon-search"></span>
+			<div class="form-group">
+				<input type="text" name="productNameToSearch" placeholder="Search..." class="form-control" />
+				<br />
+				@Html.DropDownList("CategoryNameToSearch", (SelectList)ViewBag.Categories, new { @class = "form-control" })
+				<br />
+				<button type="submit" class="btn btn-default btn-primary">
+					@*<span class="glyphicon glyphicon-search"></span>*@
+					<span>Search</span>
 				</button>
 			</div>
 		}
 		<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
 		<br />
-		<div id="tabledata">
+		<div id="productsList" class="productsList">
 			@Html.Action("ProductsDataPartial")
 		</div>
 	</div>
 
 	@section scripts
 		{
-		@*Ненавязивый JavaScript для выполнения запроса на сервер без полного обновления страницы*@
+		@*Ненавязчивый JavaScript для выполнения запроса на сервер без полного обновления страницы*@
 		<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 	}
 	<script type="text/javascript">
