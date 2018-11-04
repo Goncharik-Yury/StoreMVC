@@ -15,7 +15,7 @@
 	<table class="table">
 		<tr>
 			<th>
-				@Html.DisplayNameFor(model => model.Customer.Name)
+				@Html.DisplayNameFor(model => model.UserProfile.UserName)
 			</th>
 			<th>
 				@Html.DisplayNameFor(model => model.Product.Name)
@@ -30,9 +30,7 @@
 		{
 			<tr>
 				<td>
-					<a href="@Url.Action("Details", new { id = item.OrderId })">
-						@Html.DisplayFor(modelItem => item.Customer.Name)
-					</a>
+					@Html.DisplayFor(modelItem => item.UserProfile.UserName)
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Product.Name)
@@ -42,7 +40,7 @@
 				</td>
 				<td>
 					@Html.Partial("_EditButtonPartial", item.OrderId)
-					@Html.Partial("_DeleteButtonPartial", new { id = item.OrderId })
+					@Html.Partial("_DeleteButtonPartial", item.OrderId)
 				</td>
 			</tr>
 		}

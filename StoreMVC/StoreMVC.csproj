@@ -96,6 +96,12 @@
     <Reference Include="Microsoft.ApplicationInsights, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.7.2\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.3\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
@@ -244,6 +250,14 @@
     <Compile Include="Migrations\201810021851560_MigrateDB1.Designer.cs">
       <DependentUpon>201810021851560_MigrateDB1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811011720090_MigrateDB2.cs" />
+    <Compile Include="Migrations\201811011720090_MigrateDB2.Designer.cs">
+      <DependentUpon>201811011720090_MigrateDB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021501113_MigrateDB3.cs" />
+    <Compile Include="Migrations\201811021501113_MigrateDB3.Designer.cs">
+      <DependentUpon>201811021501113_MigrateDB3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -263,7 +277,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Custom.css" />
     <Content Include="Content\gridStyle.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -309,7 +322,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -430,6 +443,7 @@
     <Content Include="Views\Shared\_EditButtonPartial.cshtml" />
     <Content Include="Views\Shared\_DeleteButtonPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CategoryTemplate.cshtml" />
+    <Content Include="Views\Shared\_AddToBagButtonPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -452,6 +466,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810021851560_MigrateDB1.resx">
       <DependentUpon>201810021851560_MigrateDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811011720090_MigrateDB2.resx">
+      <DependentUpon>201811011720090_MigrateDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021501113_MigrateDB3.resx">
+      <DependentUpon>201811021501113_MigrateDB3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

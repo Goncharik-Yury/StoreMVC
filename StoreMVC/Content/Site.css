@@ -23,11 +23,6 @@ textarea {
 	max-width: 280px;
 }
 
-/*.productsList.img-thumbnail {
-	width: 100px !important;
-	height: 100px !important;
-}*/
-
 .catalog-category-item {
 	height: 24px;
 	padding: 8px;
@@ -45,3 +40,14 @@ textarea {
 	font-size: 14px;
 	line-height: 1;
 }
+
+.catalog-content {
+	background-color: white;
+	border: 1px solid #cccccc;
+	padding-top: 15px;
+}
+
+body {
+	background-color: rgb(230,230,230);
+}
+

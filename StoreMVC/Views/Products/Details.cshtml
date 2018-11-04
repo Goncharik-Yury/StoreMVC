@@ -12,7 +12,7 @@
 	<title>Details</title>
 </head>
 <body>
-	@Html.Partial("_BackToListButtonPartial")<br/><br />
+	@Html.Partial("_BackToListButtonPartial")<br /><br />
 	<div class="row">
 		<div class="col-md-3">
 			<img src=@Html.DisplayFor(model => model.imgName) class="img-responsive img-rounded" />
@@ -34,9 +34,10 @@
 					@Html.DisplayFor(model => model.Category)
 				</div>*@
 			<div>
+				@Html.Partial("_AddToBagButtonPartial", Model.ProductId)
 				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))*@
 				{
-					@Html.Partial("_EditButtonPartial", Model.ProductId )
+				@Html.Partial("_EditButtonPartial", Model.ProductId)
 				}
 			</div>
 		</div>

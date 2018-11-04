@@ -8,7 +8,7 @@
 
 <html>
 <head>
-	
+
 	<meta name="viewport" content="width=device-width" />
 	<title>Index</title>
 </head>
@@ -22,13 +22,12 @@
 			//OnFailure = "OnFailure"
 		};
 	}
-
 	@*@if (Request.IsAuthenticated)
-	{*@
-		<span style="margin-right: 5px; float: left;">
-			@Html.ActionLink("Add new product", "Create", FormMethod.Post, new { @class = "btn btn-default" })
-		</span>
-		<br /><br />
+		{*@
+	<span style="margin-right: 5px; float: left;">
+		@Html.ActionLink("Add new product", "Create", FormMethod.Post, new { @class = "btn btn-default" })
+	</span>
+	<br /><br />
 	@*}*@
 
 	<div>
@@ -37,7 +36,7 @@
 			<div class="form-group">
 				<input type="text" name="productNameToSearch" placeholder="Search..." class="form-control" />
 				<br />
-				@Html.DropDownList("CategoryNameToSearch", (SelectList)ViewBag.Categories, new { @class = "form-control" })
+				@Html.DropDownList("categoryNameToSearch", (SelectList)ViewBag.Categories, new { @class = "form-control" })
 				<br />
 				<button type="submit" class="btn btn-default btn-primary">
 					@*<span class="glyphicon glyphicon-search"></span>*@
@@ -48,7 +47,7 @@
 		<span id="loadingIndicator" style="display:none; color: orange">Loading...</span>
 		<br />
 		<div id="productsList" class="productsList">
-			@Html.Action("ProductsDataPartial")
+			@Html.Action("ProductsSearch", new { categoryNameToSearch = ViewBag.categoryNameToSearch, productNameToSearch = ViewBag.productNameToSearch })
 		</div>
 	</div>
 
@@ -56,11 +55,11 @@
 		{
 		@*Ненавязчивый JavaScript для выполнения запроса на сервер без полного обновления страницы*@
 		<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+		<script type="text/javascript">
+			function OnFailure(request, error) {
+				alert("Some error appear:\n" + error);
+			}
+		</script>
 	}
-	<script type="text/javascript">
-		function OnFailure(request, error) {
-			alert("Some error appear:\n" + error);
-		}
-	</script>
 </body>
 </html>

@@ -15,14 +15,13 @@ namespace StoreMVC.Controllers
 	{
 		private DBStoreMVC db = new DBStoreMVC();
 
-
-
 		// GET: Products
-		public ActionResult Index()
+		public ActionResult Index(String categoryNameToSearch="all", String productNameToSearch="")
 		{
-			//var products = db.Products.Include(o => o.Category);
 			ViewBag.Categories = GetCategoriesSelectList();
-			return View(db.Products.ToList());
+			ViewBag.categoryNameToSearch = categoryNameToSearch;
+			ViewBag.productNameToSearch = productNameToSearch;
+			return View(/*db.Products.ToList()*/);
 		}
 
 		// GET: Products/Details/5
@@ -166,30 +165,49 @@ namespace StoreMVC.Controllers
 			base.Dispose(disposing);
 		}
 
-		public ActionResult ProductsDataPartial()
+		public ActionResult ProductsSearch(string categoryNameToSearch, string productNameToSearch)
 		{
-			var products = db.Products.ToList();
-			//db.Products.Where(a => a.Name.Contains(name)).ToList();
-
-			//var products = db.Products.Include(o => o.Category);
-			return PartialView("_ProductsDataPartial", products);
-		}
-
-		[HttpPost]
-		public ActionResult ProductsSearch(string productNameToSearch, string CategoryNameToSearch)
-		{
-			if (CategoryNameToSearch == "all")
-				CategoryNameToSearch = "";
-
-			var productsOfCategory = db.Products.Where(model => model.Category.Contains(CategoryNameToSearch));
-			var productsToShow = productsOfCategory.Where(model => model.Name.Contains(productNameToSearch)).ToList();
-
 			//if (productsToShow.Count <= 0)
 			//{
 			//	return HttpNotFound();
 			//}
+
+			List<Product> productsToShow = GetProductsFromDB(categoryNameToSearch, productNameToSearch);
 			return PartialView("_ProductsDataPartial", productsToShow);
 		}
+
+		private List<Product> GetProductsFromDB(string categoryNameToSearch = "all", string productNameToSearch = "")
+		{
+			if (String.IsNullOrEmpty(categoryNameToSearch))
+				categoryNameToSearch = "all";
+			if (String.IsNullOrEmpty(productNameToSearch))
+				productNameToSearch = "";
+
+			if (!ProductsCategories.CategoriesDictionary.ContainsKey(categoryNameToSearch))
+			{
+				return new List<Product>();
+			}
+
+			if (categoryNameToSearch == "all")
+				categoryNameToSearch = "";
+
+			List<Product> productsOfCategory = db.Products.Where(model => model.Category.Contains(categoryNameToSearch)).ToList();
+
+			if (String.IsNullOrEmpty(productNameToSearch))
+			{
+				return productsOfCategory;
+			}
+			else
+			{
+				List<Product> productsToShow = productsOfCategory.Where(model => model.Name.ToLower().Contains(productNameToSearch.ToLower())).ToList();
+				return productsToShow;
+			}
+		}
+		//public ActionResult GetProductsOfCategory(string categoryNameToSearch)
+		//{
+		//	ViewBag.Categories = GetCategoriesSelectList();
+		//	return View("Index", productsOfCategory.ToList());
+		//}
 
 		public ActionResult Upload()
 		{

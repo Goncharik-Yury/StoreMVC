@@ -77,7 +77,7 @@ namespace StoreMVC.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public ActionResult Register(RegisterModel model)
+		public ActionResult Register([Bind(Include = "UserName,Password,ConfirmPassword,FirstName,LastName,Patronymic,Email,Captcha")] RegisterModel model)
 		{
 			if (model.Captcha != (string)Session["code"])
 			{
@@ -89,14 +89,14 @@ namespace StoreMVC.Controllers
 				try
 				{
 					// Создание пользователя
-					WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+					WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { model.FirstName, model.LastName, model.Patronymic, model.Email});
 					// Аутентификация пользователя
 					WebSecurity.Login(model.UserName, model.Password);
 					return RedirectToAction("Index", "Home");
 				}
 				catch (MembershipCreateUserException e)
 				{
-					ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+					ModelState.AddModelError("UserName", ErrorCodeToString(e.StatusCode));
 				}
 			}
 

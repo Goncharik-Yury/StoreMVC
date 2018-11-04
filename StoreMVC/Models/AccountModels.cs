@@ -14,8 +14,19 @@ namespace StoreMVC.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
-        public string UserName { get; set; }
-    }
+
+		[Display(Name = "Login")]
+		[Index(IsUnique = true)]
+		[Required(ErrorMessage = "Enter login")]
+		[StringLength(20, ErrorMessage = "Login can't be more of 20 simbols")]
+		public string UserName { get; set; }
+
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public string Patronymic { get; set; }
+		public string Email { get; set; }
+
+	}
 
     public class LocalPasswordModel
     {
@@ -68,6 +79,10 @@ namespace StoreMVC.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public string Patronymic { get; set; }
+		public string Email { get; set; }
 		[Required]
 		[Display(Name = "Введите число с картинки")]
 		public string Captcha { get; set; }

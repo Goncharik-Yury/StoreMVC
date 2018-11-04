@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StoreMVC.Models;
+using StoreMVC.Filters;
+using WebMatrix.WebData;
 
 namespace StoreMVC.Controllers
 {
@@ -18,8 +20,8 @@ namespace StoreMVC.Controllers
 		// GET: Orders
 		public ActionResult Index()
 		{
-			var orders = db.Orders.Include(o => o.Customer).Include(o => o.Product);
-			return View(orders.ToList());
+			List<Order> orders = GetOrderObjects();
+			return View(orders);
 		}
 
 		// GET: Orders/Details/5
@@ -29,7 +31,7 @@ namespace StoreMVC.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Order order = db.Orders.Include(o => o.Customer).Include(o => o.Product).Where(o => o.OrderId == id).First(); ;
+			Order order = GetOrderObjects(id);
 			if (order == null)
 			{
 				return HttpNotFound();
@@ -40,8 +42,8 @@ namespace StoreMVC.Controllers
 		// GET: Orders/Create
 		public ActionResult Create()
 		{
-			ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "Name");
-			ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name");
+			Add_ViewBag_UserId();
+			Add_ViewBag_ProductId();
 			return View();
 		}
 
@@ -50,8 +52,13 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "OrderId,CustomerId,ProductId,Date")] Order order)
+		[Authorize]
+		[InitializeSimpleMembership]
+		public ActionResult Create([Bind(Include = "OrderId,UserId,ProductId,Date")] Order order)
 		{
+			order.Date = DateTime.Now;
+			order.UserId = WebSecurity.GetUserId(User.Identity.Name);
+
 			if (ModelState.IsValid)
 			{
 				db.Orders.Add(order);
@@ -59,8 +66,8 @@ namespace StoreMVC.Controllers
 				return RedirectToAction("Index");
 			}
 
-			ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "Name", order.CustomerId);
-			ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", order.ProductId);
+			Add_ViewBag_UserId(order.UserId);
+			Add_ViewBag_ProductId(order.ProductId);
 			return View(order);
 		}
 
@@ -76,8 +83,8 @@ namespace StoreMVC.Controllers
 			{
 				return HttpNotFound();
 			}
-			ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "Name", order.CustomerId);
-			ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", order.ProductId);
+			Add_ViewBag_UserId(order.UserId);
+			Add_ViewBag_ProductId(order.ProductId);
 			return View(order);
 		}
 
@@ -86,7 +93,7 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "OrderId,CustomerId,ProductId,Date")] Order order)
+		public ActionResult Edit([Bind(Include = "OrderId,UserId,ProductId,Date")] Order order)
 		{
 			if (ModelState.IsValid)
 			{
@@ -94,8 +101,8 @@ namespace StoreMVC.Controllers
 				db.SaveChanges();
 				return RedirectToAction("Index");
 			}
-			ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "Name", order.CustomerId);
-			ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", order.ProductId);
+			Add_ViewBag_UserId(order.UserId);
+			Add_ViewBag_ProductId(order.ProductId);
 			return View(order);
 		}
 
@@ -106,7 +113,7 @@ namespace StoreMVC.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Order order = db.Orders.Find(id);
+			Order order = GetOrderObjects(id);
 			if (order == null)
 			{
 				return HttpNotFound();
@@ -133,5 +140,25 @@ namespace StoreMVC.Controllers
 			}
 			base.Dispose(disposing);
 		}
+
+		private void Add_ViewBag_UserId(int? userId = null)
+		{
+			ViewBag.UserId = new SelectList(db.UserProfiles, "UserId", "UserName", userId);
+		}
+
+		private void Add_ViewBag_ProductId(int? productId = null)
+		{
+			ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", productId);
+		}
+
+		private List<Order> GetOrderObjects()
+		{
+			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).ToList();
+		}
+		private Order GetOrderObjects(int? id)
+		{
+			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).Where(o => o.OrderId == id).First();
+		}
+
 	}
 }
