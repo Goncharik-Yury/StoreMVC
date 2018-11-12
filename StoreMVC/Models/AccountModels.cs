@@ -27,26 +27,6 @@ namespace StoreMVC.Models
 
 	}
 
-	public class UserProfileEdit
-	{
-		[Key]
-		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-		public int UserId { get; set; }
-
-		[Display(Name = "Login")]
-		[Index(IsUnique = true)]
-		[Required(ErrorMessage = "Enter login")]
-		[StringLength(20, ErrorMessage = "Login can't be more than 20 simbols")]
-		public string UserName { get; set; }
-
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string Patronymic { get; set; }
-		public string Email { get; set; }
-		public int RoleId { get; set; }
-
-	}
-
 	public class LocalPasswordModel
     {
         [Required]

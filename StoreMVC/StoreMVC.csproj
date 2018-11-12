@@ -263,6 +263,10 @@
     <Compile Include="Migrations\201811121457478_MigrateDB4.Designer.cs">
       <DependentUpon>201811121457478_MigrateDB4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811121517579_MigrateDB5.cs" />
+    <Compile Include="Migrations\201811121517579_MigrateDB5.Designer.cs">
+      <DependentUpon>201811121517579_MigrateDB5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -452,6 +456,11 @@
     <Content Include="Views\Account\UsersEditPanel.cshtml" />
     <Content Include="Views\Account\AccountsEditPanel.cshtml" />
     <Content Include="Views\Shared\_CreateNewElementPartial.cshtml" />
+    <Content Include="Views\UserProfiles\Create.cshtml" />
+    <Content Include="Views\UserProfiles\Delete.cshtml" />
+    <Content Include="Views\UserProfiles\Details.cshtml" />
+    <Content Include="Views\UserProfiles\Edit.cshtml" />
+    <Content Include="Views\UserProfiles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -483,6 +492,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811121457478_MigrateDB4.resx">
       <DependentUpon>201811121457478_MigrateDB4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811121517579_MigrateDB5.resx">
+      <DependentUpon>201811121517579_MigrateDB5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

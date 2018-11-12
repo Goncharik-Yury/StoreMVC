@@ -62,17 +62,17 @@ namespace StoreMVC.Filters
 					// Поиск пользователя с логином admin
 					if (membership.GetUser("admin", false) == null)
 					{
-						membership.CreateUserAndAccount("admin", "qweqwe"); // создание пользователя
+						membership.CreateUserAndAccount("admin", "qwerty"); // создание пользователя
 						roles.AddUsersToRoles(new[] { "admin" }, new[] { "Admin" }); // установка роли для пользователя
 					}
 					if (membership.GetUser("moder", false) == null)
 					{
-						membership.CreateUserAndAccount("moder", "qweqwe"); // создание пользователя
+						membership.CreateUserAndAccount("moder", "qwerty"); // создание пользователя
 						roles.AddUsersToRoles(new[] { "moder" }, new[] { "Moderator" }); // установка роли для пользователя
 					}
 					if (membership.GetUser("user", false) == null)
 					{
-						membership.CreateUserAndAccount("user", "qweqwe");
+						membership.CreateUserAndAccount("user", "qwerty");
 						//roles.AddUsersToRoles(new[] { "user" }, new[] { "Moderator" });
 					}
 				}
