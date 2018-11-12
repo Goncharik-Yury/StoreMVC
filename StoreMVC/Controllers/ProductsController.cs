@@ -18,7 +18,7 @@ namespace StoreMVC.Controllers
 		// GET: Products
 		public ActionResult Index(String categoryNameToSearch="all", String productNameToSearch="")
 		{
-			ViewBag.Categories = GetCategoriesSelectList();
+			Add_ViewBag_CategoriesSelectList();
 			ViewBag.categoryNameToSearch = categoryNameToSearch;
 			ViewBag.productNameToSearch = productNameToSearch;
 			return View(/*db.Products.ToList()*/);
@@ -46,7 +46,7 @@ namespace StoreMVC.Controllers
 		public ActionResult Create()
 		{
 			/*ViewBag.Category = */
-			ViewBag.Categories = GetCategoriesSelectList();
+			Add_ViewBag_CategoriesSelectList();
 			return View();
 		}
 
@@ -59,7 +59,7 @@ namespace StoreMVC.Controllers
 		public ActionResult Create([Bind(Include = "ProductId,Name,Description,Price,Category")] Product product, HttpPostedFileBase file)
 		{
 			/*ViewBag.Category = */
-			ViewBag.Categories = GetCategoriesSelectList();
+			Add_ViewBag_CategoriesSelectList();
 			if (product.Category == "all")
 			{
 				ModelState.AddModelError("Category", "Выберите категорию продукта");
@@ -80,7 +80,7 @@ namespace StoreMVC.Controllers
 		public ActionResult Edit(int? id)
 		{
 			/*ViewBag.Category = */
-			ViewBag.Categories = GetCategoriesSelectList();
+			Add_ViewBag_CategoriesSelectList();
 
 			if (id == null)
 			{
@@ -103,7 +103,7 @@ namespace StoreMVC.Controllers
 		//[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category,imgName")] Product product, HttpPostedFileBase file, string imgName_old)
 		{
-			ViewBag.Categories = GetCategoriesSelectList();
+			Add_ViewBag_CategoriesSelectList();
 
 			if (product.Category == "all")
 			{
@@ -221,7 +221,11 @@ namespace StoreMVC.Controllers
 			return View();
 		}
 
-		private SelectList GetCategoriesSelectList(int selectedItem = 1)
+		private void Add_ViewBag_CategoriesSelectList(int selectedItem = 1)
+		{
+			ViewBag.Categories = CategoriesSelectList(selectedItem);
+		}
+		private SelectList CategoriesSelectList(int selectedItem = 1)
 		{
 			var categoriesSelectList = ProductsCategories.CategoriesSelectList;
 			categoriesSelectList[0].Text = "";

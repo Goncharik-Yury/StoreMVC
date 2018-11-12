@@ -19,6 +19,7 @@ namespace StoreMVC.Controllers
 	[InitializeSimpleMembershipAttribute]
 	public class AccountController : Controller
 	{
+		private DBStoreMVC db = new DBStoreMVC();
 		//
 		// GET: /Account/Login
 
@@ -81,7 +82,7 @@ namespace StoreMVC.Controllers
 		{
 			if (model.Captcha != (string)Session["code"])
 			{
-				ModelState.AddModelError("Captcha", "Текст с картинки введен неверно");
+				ModelState.AddModelError("Captcha", "You enter wrong simbols from captcha image");
 			}
 			if (ModelState.IsValid)
 			{
@@ -89,7 +90,7 @@ namespace StoreMVC.Controllers
 				try
 				{
 					// Создание пользователя
-					WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { model.FirstName, model.LastName, model.Patronymic, model.Email});
+					WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { model.FirstName, model.LastName, model.Patronymic, model.Email });
 					// Аутентификация пользователя
 					WebSecurity.Login(model.UserName, model.Password);
 					return RedirectToAction("Index", "Home");
@@ -97,6 +98,10 @@ namespace StoreMVC.Controllers
 				catch (MembershipCreateUserException e)
 				{
 					ModelState.AddModelError("UserName", ErrorCodeToString(e.StatusCode));
+				}
+				catch (Exception e)
+				{
+					ModelState.AddModelError("UserName", "Somesing gone wrong. \n Error: " + e);
 				}
 			}
 
@@ -106,7 +111,6 @@ namespace StoreMVC.Controllers
 
 		//
 		// GET: /Account/Manage
-
 		public ActionResult Manage(ManageMessageId? message)
 		{
 			ViewBag.StatusMessage =
@@ -116,6 +120,13 @@ namespace StoreMVC.Controllers
 				: "";
 			ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
 			ViewBag.ReturnUrl = Url.Action("Manage");
+
+			int userId = WebSecurity.GetUserId(User.Identity.Name);
+			UserProfile currentUser = db.UserProfiles.Find(userId);
+			ViewBag.UserFirstName = currentUser.FirstName;
+			ViewBag.UserLastName = currentUser.LastName;
+			ViewBag.UserPatronymic = currentUser.Patronymic;
+
 			return View();
 		}
 
@@ -212,13 +223,13 @@ namespace StoreMVC.Controllers
 		}
 
 
-		[Authorize] // Запрещены анонимные обращения к данной странице
+		[Authorize]
 		public ActionResult Cabinet()
 		{
 			return View();
 		}
 
-		[Authorize(Roles = "Admin")] // К данному методу действия могут получать доступ только пользователи с ролью Admin
+		[Authorize(Roles = "Admin")]
 		public ActionResult AdminPanel()
 		{
 			//var membership = (SimpleMembershipProvider)Membership.Provider;
@@ -238,6 +249,28 @@ namespace StoreMVC.Controllers
 			//}
 			//ViewBag.Members = userList;
 
+			return View();
+		}
+
+		public ActionResult AccountsEditPanel()
+		{
+			List<UserProfile> AccountsList = db.UserProfiles.ToList();
+			return View(AccountsList);
+		}
+
+		public ActionResult AccountEdit()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[Authorize(Roles = "Admin")]
+		[ValidateAntiForgeryToken]
+		public ActionResult AccountEdit([Bind(Include = "UserName,Password,ConfirmPassword,FirstName,LastName,Patronymic,Email")] UserProfile userProfile)
+		{
+			if (ModelState.IsValid)
+			{
+			}
 			return View();
 		}
 

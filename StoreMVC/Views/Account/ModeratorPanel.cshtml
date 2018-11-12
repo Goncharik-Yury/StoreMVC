@@ -1,8 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Moderator Panel";
+	ViewBag.Title = "Moderator Panel";
 }
 
 <hgroup class="title">
-    <h2>@ViewBag.Title</h2>
-	<p>Something should be here, but i dont know what to realize. All necessary functions are already able in "Products", "Customers" and "Orders" tabs.</p>
+	<h2>@ViewBag.Title</h2>
 </hgroup>
+<h4>@Html.ActionLink("Edit orders", "Index", "Orders")</h4>
+<h4>@Html.ActionLink("Edit products", "Index", "Products", new { categoryNameToSearch = "all" }, null)</h4>
+<h4>@Html.ActionLink("Edit users", "Index", "Orders")</h4>

@@ -7,22 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StoreMVC.Models;
-using System.Text.RegularExpressions;
 
 namespace StoreMVC.Controllers
 {
-	//[Authorize(Roles = "Admin, Moderator")]
-	public class CustomersController : Controller
+    public class UserProfilesController : Controller
     {
         private DBStoreMVC db = new DBStoreMVC();
 
-        // GET: Customers
+        // GET: UserProfiles
         public ActionResult Index()
         {
             return View(db.UserProfiles.ToList());
         }
 
-        // GET: Customers/Details/5
+        // GET: UserProfiles/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,91 +35,82 @@ namespace StoreMVC.Controllers
             return View(userProfile);
         }
 
-        // GET: Customers/Create
+        // GET: UserProfiles/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: UserProfiles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerId,Name,Email")] Customer customer)
+        public ActionResult Create([Bind(Include = "UserId,UserName,FirstName,LastName,Patronymic,Email")] UserProfile userProfile)
         {
-			if (db.Customers.FirstOrDefault(n => n.Name == customer.Name) != null)
-			{
-				ModelState.AddModelError("Name", "Имя занято");
-			}
-
-			//if (customer.Email != null && !new Regex(@"\b[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,4}\b").IsMatch(customer.Email))
-			//{
-			//	ModelState.AddModelError("Email", "Email не правильный");
-			//}
-			if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
+                db.UserProfiles.Add(userProfile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            return View(userProfile);
         }
 
-        // GET: Customers/Edit/5
+        // GET: UserProfiles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            UserProfile userProfile = db.UserProfiles.Find(id);
+            if (userProfile == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(userProfile);
         }
 
-        // POST: Customers/Edit/5
+        // POST: UserProfiles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerId,Name,Email")] Customer customer)
+        public ActionResult Edit([Bind(Include = "UserId,UserName,FirstName,LastName,Patronymic,Email")] UserProfile userProfile)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                db.Entry(userProfile).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customer);
+            return View(userProfile);
         }
 
-        // GET: Customers/Delete/5
+        // GET: UserProfiles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            UserProfile userProfile = db.UserProfiles.Find(id);
+            if (userProfile == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(userProfile);
         }
 
-        // POST: Customers/Delete/5
+        // POST: UserProfiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            UserProfile userProfile = db.UserProfiles.Find(id);
+            db.UserProfiles.Remove(userProfile);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

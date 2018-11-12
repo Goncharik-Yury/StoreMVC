@@ -233,6 +233,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\UserProfilesController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -257,6 +258,10 @@
     <Compile Include="Migrations\201811021501113_MigrateDB3.cs" />
     <Compile Include="Migrations\201811021501113_MigrateDB3.Designer.cs">
       <DependentUpon>201811021501113_MigrateDB3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811121457478_MigrateDB4.cs" />
+    <Compile Include="Migrations\201811121457478_MigrateDB4.Designer.cs">
+      <DependentUpon>201811121457478_MigrateDB4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -444,6 +449,9 @@
     <Content Include="Views\Shared\_DeleteButtonPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CategoryTemplate.cshtml" />
     <Content Include="Views\Shared\_AddToBagButtonPartial.cshtml" />
+    <Content Include="Views\Account\UsersEditPanel.cshtml" />
+    <Content Include="Views\Account\AccountsEditPanel.cshtml" />
+    <Content Include="Views\Shared\_CreateNewElementPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -472,6 +480,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811021501113_MigrateDB3.resx">
       <DependentUpon>201811021501113_MigrateDB3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811121457478_MigrateDB4.resx">
+      <DependentUpon>201811121457478_MigrateDB4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

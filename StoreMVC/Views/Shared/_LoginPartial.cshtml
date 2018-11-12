@@ -27,9 +27,10 @@
 			}
 			<li>
 				<span>
+					
 					@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
 					{
-						@Html.AntiForgeryToken()
+						@:&nbsp; &nbsp; &nbsp; @Html.AntiForgeryToken()
 						<a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
 					}
 				</span>

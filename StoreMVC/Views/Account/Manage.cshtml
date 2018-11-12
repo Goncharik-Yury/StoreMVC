@@ -1,19 +1,29 @@
 ﻿@model StoreMVC.Models.LocalPasswordModel
 @{
-    ViewBag.Title = "Manage Account";
+	ViewBag.Title = "Manage Account";
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+	<h2>@ViewBag.Title.</h2>
 </hgroup>
 
 <p class="message-success">@ViewBag.StatusMessage</p>
 
-<h4>You're logged in as <strong>@User.Identity.Name</strong>.</h4>
+<div class="form-group">
+	<p>Nickname: <b>@User.Identity.Name</b></p>
+	<p>First name: <b>@ViewBag.UserFirstName</b></p>
+	<p>Last name: <b>@ViewBag.UserLastName</b>	</p>
+	<p>Patronymic: <b>@ViewBag.UserPatronymic</b></p>
+
+</div>
+
+
 
 @Html.Partial("_ChangePasswordPartial")
+<br /><br />
+<input type="submit" value="Save" class="btn btn-lg btn-primary" />
 
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/bundles/jqueryval")
 }
