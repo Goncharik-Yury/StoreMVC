@@ -43,7 +43,7 @@ namespace StoreMVC.Filters
 					// 2 параметр - таблица, которая содержит информацию о пользователях
 					// 3 параметр - имя колонки в таблице, которая отвечает за хранение логина
 					// 4 параметр - autoCreateTables автоматическое создание таблиц если они не существуют в базе
-					WebSecurity.InitializeDatabaseConnection("DBStoreMVC", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+					WebSecurity.InitializeDatabaseConnection("DBStoreMVC", "UserProfiles", "UserId", "UserName", autoCreateTables: true);
 
 					SimpleRoleProvider roles = (SimpleRoleProvider)Roles.Provider;
 					SimpleMembershipProvider membership = (SimpleMembershipProvider)Membership.Provider;
@@ -58,10 +58,16 @@ namespace StoreMVC.Filters
 					{
 						roles.CreateRole("Moderator");
 					}
+					// Проверка наличия роли User
+					if (!roles.RoleExists("User"))
+					{
+						roles.CreateRole("User");
+					}
 
 					// Поиск пользователя с логином admin
 					if (membership.GetUser("admin", false) == null)
 					{
+						/*WebSecurity.CreateUserAndAccount("admin", "qwerty", new { FirstName = "Main", LastName = "Admin", Patronymic = "", Email = "Selest.gyv@gmail.com" });*/
 						membership.CreateUserAndAccount("admin", "qwerty"); // создание пользователя
 						roles.AddUsersToRoles(new[] { "admin" }, new[] { "Admin" }); // установка роли для пользователя
 					}
@@ -70,11 +76,11 @@ namespace StoreMVC.Filters
 						membership.CreateUserAndAccount("moder", "qwerty"); // создание пользователя
 						roles.AddUsersToRoles(new[] { "moder" }, new[] { "Moderator" }); // установка роли для пользователя
 					}
-					if (membership.GetUser("user", false) == null)
-					{
-						membership.CreateUserAndAccount("user", "qwerty");
-						//roles.AddUsersToRoles(new[] { "user" }, new[] { "Moderator" });
-					}
+					//if (membership.GetUser("user", false) == null)
+					//{
+					//	membership.CreateUserAndAccount("user", "qwerty");
+					//	roles.AddUsersToRoles(new[] { "user" }, new[] { "User" });
+					//}
 				}
 				catch (Exception ex)
 				{

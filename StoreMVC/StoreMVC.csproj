@@ -239,35 +239,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CustomerModelBinder.cs" />
-    <Compile Include="Migrations\201809271347114_InitialCreate.cs" />
-    <Compile Include="Migrations\201809271347114_InitialCreate.Designer.cs">
-      <DependentUpon>201809271347114_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809271427214_MigrateDB.cs" />
-    <Compile Include="Migrations\201809271427214_MigrateDB.Designer.cs">
-      <DependentUpon>201809271427214_MigrateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810021851560_MigrateDB1.cs" />
-    <Compile Include="Migrations\201810021851560_MigrateDB1.Designer.cs">
-      <DependentUpon>201810021851560_MigrateDB1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811011720090_MigrateDB2.cs" />
-    <Compile Include="Migrations\201811011720090_MigrateDB2.Designer.cs">
-      <DependentUpon>201811011720090_MigrateDB2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811021501113_MigrateDB3.cs" />
-    <Compile Include="Migrations\201811021501113_MigrateDB3.Designer.cs">
-      <DependentUpon>201811021501113_MigrateDB3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811121457478_MigrateDB4.cs" />
-    <Compile Include="Migrations\201811121457478_MigrateDB4.Designer.cs">
-      <DependentUpon>201811121457478_MigrateDB4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811121517579_MigrateDB5.cs" />
-    <Compile Include="Migrations\201811121517579_MigrateDB5.Designer.cs">
-      <DependentUpon>201811121517579_MigrateDB5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DBInitializer.cs" />
@@ -473,29 +444,6 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809271347114_InitialCreate.resx">
-      <DependentUpon>201809271347114_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809271427214_MigrateDB.resx">
-      <DependentUpon>201809271427214_MigrateDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810021851560_MigrateDB1.resx">
-      <DependentUpon>201810021851560_MigrateDB1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811011720090_MigrateDB2.resx">
-      <DependentUpon>201811011720090_MigrateDB2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811021501113_MigrateDB3.resx">
-      <DependentUpon>201811021501113_MigrateDB3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811121457478_MigrateDB4.resx">
-      <DependentUpon>201811121457478_MigrateDB4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811121517579_MigrateDB5.resx">
-      <DependentUpon>201811121517579_MigrateDB5.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

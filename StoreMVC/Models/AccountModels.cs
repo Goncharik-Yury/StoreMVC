@@ -7,76 +7,92 @@ using System.Web.Security;
 
 namespace StoreMVC.Models
 {
-    [Table("User Profile")]
-    public class UserProfile
-    {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
+	public class UserProfile
+	{
+		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+		public int UserId { get; set; }
 
 		[Display(Name = "Login")]
 		[Index(IsUnique = true)]
-		[Required(ErrorMessage = "Enter login")]
+		[Required(ErrorMessage = "Enter your login")]
 		[StringLength(20, ErrorMessage = "Login can't be more than 20 simbols")]
 		public string UserName { get; set; }
 
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Patronymic { get; set; }
-		public string Email { get; set; }
 
+		//[Required(ErrorMessage = "Enter your email")]
+		[RegularExpression(@"(?i)\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", ErrorMessage = "Wrong email address")]
+		public string Email { get; set; }
+	}
+
+	[NotMapped]
+	public class UserProfileFull : UserProfile
+	{
+		public string[] Roles { get; set; }
+		public UserProfileFull(UserProfile userProfile) : base()
+		{
+			UserId = userProfile.UserId;
+			UserName = userProfile.UserName;
+			FirstName = userProfile.FirstName;
+			LastName = userProfile.LastName;
+			Patronymic = userProfile.Patronymic;
+			Email = userProfile.Email;
+		}
 	}
 
 	public class LocalPasswordModel
-    {
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string OldPassword { get; set; }
+	{
+		[Required]
+		[DataType(DataType.Password)]
+		[Display(Name = "Password")]
+		public string OldPassword { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "New password")]
-        public string NewPassword { get; set; }
+		[Required]
+		[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+		[DataType(DataType.Password)]
+		[Display(Name = "New password")]
+		public string NewPassword { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-    }
+		[DataType(DataType.Password)]
+		[Display(Name = "Confirm password")]
+		[Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+		public string ConfirmPassword { get; set; }
+	}
 
-    public class LoginModel
-    {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+	public class LoginModel
+	{
+		[Required]
+		[Display(Name = "User name")]
+		public string UserName { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+		[Required]
+		[DataType(DataType.Password)]
+		[Display(Name = "Password")]
+		public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
-    }
+		[Display(Name = "Remember me?")]
+		public bool RememberMe { get; set; }
+	}
 
-    public class RegisterModel
-    {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+	public class RegisterModel
+	{
+		[Required]
+		[Display(Name = "User name")]
+		public string UserName { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+		[Required]
+		[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+		[DataType(DataType.Password)]
+		[Display(Name = "Password")]
+		public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+		[DataType(DataType.Password)]
+		[Display(Name = "Confirm password")]
+		[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+		public string ConfirmPassword { get; set; }
 
 		public string FirstName { get; set; }
 		public string LastName { get; set; }

@@ -53,7 +53,6 @@ namespace StoreMVC.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Authorize]
-		[InitializeSimpleMembership]
 		public ActionResult Create([Bind(Include = "OrderId,UserId,ProductId,Date")] Order order)
 		{
 			order.Date = DateTime.Now;

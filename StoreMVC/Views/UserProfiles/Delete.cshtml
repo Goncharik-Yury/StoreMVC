@@ -1,4 +1,4 @@
-﻿@model StoreMVC.Models.UserProfile
+﻿@model StoreMVC.Models.UserProfileFull
 
 @{
     ViewBag.Title = "Delete";
@@ -11,48 +11,55 @@
 <div>
     <h4>UserProfile</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.UserName)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.UserName)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.FirstName)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.FirstName)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.LastName)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.LastName)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Patronymic)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.Patronymic)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Patronymic)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Patronymic)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.Email)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Email)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Roles)
+		</dt>
 
-    </dl>
+		<dd>
+			@Html.DisplayFor(model => model.Roles)
+		</dd>
+
+	</dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

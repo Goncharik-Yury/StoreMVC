@@ -107,7 +107,7 @@ namespace StoreMVC.Controllers
 
 			if (product.Category == "all")
 			{
-				ModelState.AddModelError("Category", "Выберите категорию продукта");
+				ModelState.AddModelError("Category", "Chose product category");
 			}
 
 			if (ModelState.IsValid)

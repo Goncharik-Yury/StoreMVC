@@ -50,10 +50,7 @@ namespace StoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CustomerId,Name,Email")] Customer customer)
         {
-			if (db.Customers.FirstOrDefault(n => n.Name == customer.Name) != null)
-			{
-				ModelState.AddModelError("Name", "Имя занято");
-			}
+			isLoginIsAvailable(customer.Name);
 
 			//if (customer.Email != null && !new Regex(@"\b[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2,4}\b").IsMatch(customer.Email))
 			//{
@@ -91,7 +88,9 @@ namespace StoreMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CustomerId,Name,Email")] Customer customer)
         {
-            if (ModelState.IsValid)
+			isLoginIsAvailable(customer.Name);
+
+			if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
@@ -134,5 +133,15 @@ namespace StoreMVC.Controllers
             }
             base.Dispose(disposing);
         }
+
+		private bool isLoginIsAvailable(string name)
+		{
+			if (db.Customers.FirstOrDefault(n => n.Name == name) != null)
+			{
+				ModelState.AddModelError("Name", "This login is already taken. Please choose another.");
+				return false;
+			}
+			return true;
+		}
     }
 }
