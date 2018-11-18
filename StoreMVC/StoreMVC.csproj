@@ -239,6 +239,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CustomerModelBinder.cs" />
+    <Compile Include="Migrations\201811132003205_InitialCreate.cs" />
+    <Compile Include="Migrations\201811132003205_InitialCreate.Designer.cs">
+      <DependentUpon>201811132003205_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811181218242_AddMoneyField.cs" />
+    <Compile Include="Migrations\201811181218242_AddMoneyField.Designer.cs">
+      <DependentUpon>201811181218242_AddMoneyField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DBInitializer.cs" />
@@ -432,6 +441,7 @@
     <Content Include="Views\UserProfiles\Details.cshtml" />
     <Content Include="Views\UserProfiles\Edit.cshtml" />
     <Content Include="Views\UserProfiles\Index.cshtml" />
+    <Content Include="Views\Orders\UserOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -444,6 +454,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811132003205_InitialCreate.resx">
+      <DependentUpon>201811132003205_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811181218242_AddMoneyField.resx">
+      <DependentUpon>201811181218242_AddMoneyField.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

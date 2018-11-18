@@ -26,6 +26,9 @@ namespace StoreMVC.Models
 		//[Required(ErrorMessage = "Enter your email")]
 		[RegularExpression(@"(?i)\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", ErrorMessage = "Wrong email address")]
 		public string Email { get; set; }
+		[Range(0, int.MaxValue, ErrorMessage = "Incorrect value")]
+		//79228162514264337593543950335
+		public decimal Money { get; set; }
 	}
 
 	[NotMapped]
@@ -40,6 +43,7 @@ namespace StoreMVC.Models
 			LastName = userProfile.LastName;
 			Patronymic = userProfile.Patronymic;
 			Email = userProfile.Email;
+			Money = userProfile.Money;
 		}
 	}
 

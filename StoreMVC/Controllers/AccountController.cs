@@ -20,9 +20,9 @@ namespace StoreMVC.Controllers
 	public class AccountController : Controller
 	{
 		private DBStoreMVC db = new DBStoreMVC();
+
 		//
 		// GET: /Account/Login
-
 		[AllowAnonymous]
 		public ActionResult Login(string returnUrl)
 		{
@@ -126,6 +126,7 @@ namespace StoreMVC.Controllers
 			ViewBag.UserFirstName = currentUser.FirstName;
 			ViewBag.UserLastName = currentUser.LastName;
 			ViewBag.UserPatronymic = currentUser.Patronymic;
+			ViewBag.Email = currentUser.Email;
 
 			return View();
 		}
@@ -258,10 +259,10 @@ namespace StoreMVC.Controllers
 			return View(AccountsList);
 		}
 
-		public ActionResult AccountEdit()
-		{
-			return View();
-		}
+		//public ActionResult AccountEdit()
+		//{
+		//	return View();
+		//}
 
 		[HttpPost]
 		[Authorize(Roles = "Admin")]

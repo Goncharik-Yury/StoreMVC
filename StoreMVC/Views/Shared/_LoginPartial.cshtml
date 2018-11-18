@@ -1,6 +1,6 @@
 ﻿@if (Request.IsAuthenticated)
 {
-	<div class="btn-group">
+	<div class="btn-group" >
 		<button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">@User.Identity.Name <span class="caret"></span></button>
 		<ul class="dropdown-menu" role="menu">
 			<li>
@@ -26,8 +26,10 @@
 				</li>
 			}
 			<li>
+				@Html.ActionLink("Basket", "UserOrders", "Orders", routeValues: null, htmlAttributes: new { id = "Basket" })
+			</li>
+			<li>
 				<span>
-					
 					@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
 					{
 						@:&nbsp; &nbsp; &nbsp; @Html.AntiForgeryToken()

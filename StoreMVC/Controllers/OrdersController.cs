@@ -20,7 +20,7 @@ namespace StoreMVC.Controllers
 		// GET: Orders
 		public ActionResult Index()
 		{
-			List<Order> orders = GetOrderObjects();
+			List<Order> orders = GetOrdersAll();
 			return View(orders);
 		}
 
@@ -31,7 +31,7 @@ namespace StoreMVC.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Order order = GetOrderObjects(id);
+			Order order = GetOrderByOrderId(id);
 			if (order == null)
 			{
 				return HttpNotFound();
@@ -112,7 +112,7 @@ namespace StoreMVC.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Order order = GetOrderObjects(id);
+			Order order = GetOrderByOrderId(id);
 			if (order == null)
 			{
 				return HttpNotFound();
@@ -140,6 +140,13 @@ namespace StoreMVC.Controllers
 			base.Dispose(disposing);
 		}
 
+		public ActionResult UserOrders()
+		{
+			int userId = WebSecurity.CurrentUserId;
+			List<Order> orders = GetOrdersByUserId(userId);
+			return View(orders);
+		}
+
 		private void Add_ViewBag_UserId(int? userId = null)
 		{
 			ViewBag.UserId = new SelectList(db.UserProfiles, "UserId", "UserName", userId);
@@ -150,13 +157,18 @@ namespace StoreMVC.Controllers
 			ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", productId);
 		}
 
-		private List<Order> GetOrderObjects()
+		private List<Order> GetOrdersAll()
 		{
 			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).ToList();
 		}
-		private Order GetOrderObjects(int? id)
+		private Order GetOrderByOrderId(int? id)
 		{
 			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).Where(o => o.OrderId == id).First();
+		}
+
+		private List<Order> GetOrdersByUserId(int? id)
+		{
+			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).Where(o => o.UserId == id).ToList();
 		}
 
 	}

@@ -12,19 +12,19 @@ namespace StoreMVC.Models
 		public int ProductId { get; set; }
 
 		[Display(Name = "Product name")]
-		[Required(ErrorMessage = "Это поле обязательно для заполнения")]
-		[StringLength(100, ErrorMessage = "Имя не должно превышать 100 символов")]
+		[Required(ErrorMessage = "Enter the name of product")]
+		[StringLength(100, ErrorMessage = "Name should not be longer than 100 simbols")]
 		public string Name { get; set; }
 
 		[UIHint("MultilineText")]
 		public string Description { get; set; }
 
-		[Required(ErrorMessage = "Это поле обязательно для заполнения")]
-		[Range(0, int.MaxValue, ErrorMessage = "Цена указана не верно")]
+		[Required(ErrorMessage = "Enter the price")]
+		[Range(0, int.MaxValue, ErrorMessage = "Incorrect price")]
 		//79228162514264337593543950335
 		public decimal Price { get; set; }
 
-		[Required(ErrorMessage = "Выберите категорию продукта")]
+		[Required(ErrorMessage = "Chose product category")]
 		//[Display(Name = "Category")]
 		public String Category { get; set; }
 

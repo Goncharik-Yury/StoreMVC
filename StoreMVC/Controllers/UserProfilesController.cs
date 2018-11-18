@@ -12,12 +12,14 @@ using WebMatrix.WebData;
 
 namespace StoreMVC.Controllers
 {
+	// Editing users profiles
 	public class UserProfilesController : Controller
 	{
 		private DBStoreMVC db = new DBStoreMVC();
 		SimpleRoleProvider rolesProvider = (SimpleRoleProvider)Roles.Provider;
 
 		// GET: UserProfiles
+		[Authorize(Roles = "Admin")]
 		public ActionResult Index()
 		{
 			List<UserProfileFull> UserProfilesFull = new List<UserProfileFull>();
@@ -80,8 +82,13 @@ namespace StoreMVC.Controllers
 		{
 			if (id == null)
 			{
+				id = WebSecurity.CurrentUserId;
+			}
+			if (id == null)
+			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
+
 			UserProfileFull userProfileFull = new UserProfileFull(db.UserProfiles.Find(id));
 			if (userProfileFull == null)
 			{
@@ -114,16 +121,26 @@ namespace StoreMVC.Controllers
 			{
 				db.Entry(userProfile).State = EntityState.Modified;
 
-				RemoveUserFromRoles(userProfile.UserName);
-				AddUserToRoles(userProfile.UserName, Roles);
+				if (User.IsInRole("Admin"))
+				{
+					RemoveUserFromRoles(userProfile.UserName);
+					AddUserToRoles(userProfile.UserName, Roles);
+				}
 
 				db.SaveChanges();
-				return RedirectToAction("Index");
+				if (User.IsInRole("Admin"))
+				{
+					return RedirectToAction("Index");
+					/*Redirect(Request.UrlReferrer.ToString());*/
+				}
+				return RedirectToAction("Manage", "Account", null);
+
 			}
 			return View(userProfile);
 		}
 
 		// GET: UserProfiles/Delete/5
+		[Authorize(Roles = "Admin")]
 		public ActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -141,6 +158,7 @@ namespace StoreMVC.Controllers
 		}
 
 		// POST: UserProfiles/Delete/5
+		[Authorize(Roles = "Admin")]
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id)
