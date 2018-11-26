@@ -16,21 +16,25 @@ namespace StoreMVC.Models
 		[StringLength(100, ErrorMessage = "Name should not be longer than 100 simbols")]
 		public string Name { get; set; }
 
-		[UIHint("MultilineText")]
-		public string Description { get; set; }
+		[Required(ErrorMessage = "Chose product category")]
+		//[Display(Name = "Category")]
+		public String Category { get; set; }
 
 		[Required(ErrorMessage = "Enter the price")]
 		[Range(0, int.MaxValue, ErrorMessage = "Incorrect price")]
 		//79228162514264337593543950335
 		public decimal Price { get; set; }
 
-		[Required(ErrorMessage = "Chose product category")]
-		//[Display(Name = "Category")]
-		public String Category { get; set; }
+		[Required(ErrorMessage = "Enter number of products")]
+		[Range(0, int.MaxValue, ErrorMessage = "Incorrect count")]
+		public int Count { get; set; }
 
 		[Display(Name = "Product image")]
 		[UIHint("ImageTemplate")]
 		public string imgName { get; set; }
+
+		[UIHint("MultilineText")]
+		public string Description { get; set; }
 	}
 
 	//public class Category

@@ -42,7 +42,7 @@ namespace StoreMVC.Controllers
 
 
 		// GET: Products/Create
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Create()
 		{
 			/*ViewBag.Category = */
@@ -55,8 +55,8 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		//[Authorize(Roles = "Admin, Moderator")]
-		public ActionResult Create([Bind(Include = "ProductId,Name,Description,Price,Category")] Product product, HttpPostedFileBase file)
+		[Authorize(Roles = "Admin, Moderator")]
+		public ActionResult Create([Bind(Include = "ProductId,Name,Description,Price,Category,Count")] Product product, HttpPostedFileBase file)
 		{
 			/*ViewBag.Category = */
 			Add_ViewBag_CategoriesSelectList();
@@ -76,7 +76,7 @@ namespace StoreMVC.Controllers
 		}
 
 		// GET: Products/Edit/5
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Edit(int? id)
 		{
 			/*ViewBag.Category = */
@@ -100,8 +100,8 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		//[Authorize(Roles = "Admin, Moderator")]
-		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category,imgName")] Product product, HttpPostedFileBase file, string imgName_old)
+		[Authorize(Roles = "Admin, Moderator")]
+		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category,imgName,Count")] Product product, HttpPostedFileBase file, string imgName_old)
 		{
 			Add_ViewBag_CategoriesSelectList();
 
@@ -127,7 +127,7 @@ namespace StoreMVC.Controllers
 		}
 
 		// GET: Products/Delete/5
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -142,7 +142,7 @@ namespace StoreMVC.Controllers
 			return View(product);
 		}
 
-		//[Authorize(Roles = "Admin, Moderator")]
+		[Authorize(Roles = "Admin, Moderator")]
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
 		public ActionResult DeleteConfirmed(int id)

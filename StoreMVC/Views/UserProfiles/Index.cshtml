@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Users</h2>
 
 @*<p>
 	@Html.Partial("_CreateNewElementPartial")
@@ -54,9 +54,9 @@
 			@Html.DisplayFor(modelItem => item.Roles)
 		</td>
 		<td>
-			@Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-			@Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-			@Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+			@Html.Partial("_DetailsButtonPartial", item.UserId)
+			@Html.Partial("_EditButtonPartial", item.UserId)
+			@Html.Partial("_DeleteButtonPartial", item.UserId)
 		</td>
 	</tr>
 }

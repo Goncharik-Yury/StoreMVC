@@ -18,6 +18,7 @@ namespace StoreMVC.Controllers
 		private DBStoreMVC db = new DBStoreMVC();
 
 		// GET: Orders
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Index()
 		{
 			List<Order> orders = GetOrdersAll();
@@ -42,8 +43,8 @@ namespace StoreMVC.Controllers
 		// GET: Orders/Create
 		public ActionResult Create()
 		{
-			Add_ViewBag_UserId();
-			Add_ViewBag_ProductId();
+			AddViewBag_UsersIdSelectList();
+			AddViewBag_ProductsIdSelectList();
 			return View();
 		}
 
@@ -51,26 +52,44 @@ namespace StoreMVC.Controllers
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
-		[ValidateAntiForgeryToken]
 		[Authorize]
-		public ActionResult Create([Bind(Include = "OrderId,UserId,ProductId,Date")] Order order)
+		[ValidateAntiForgeryToken]
+		public ActionResult Create([Bind(Include = "OrderId,ProductId,Count")] Order order)
 		{
 			order.Date = DateTime.Now;
 			order.UserId = WebSecurity.GetUserId(User.Identity.Name);
 
+			AddViewBag_UsersIdSelectList(order.UserId);
+			AddViewBag_ProductsIdSelectList(order.ProductId);
+
 			if (ModelState.IsValid)
 			{
-				db.Orders.Add(order);
-				db.SaveChanges();
-				return RedirectToAction("Index");
+				Order orderInDb = db.Orders.Where(o =>
+					o.ProductId == order.ProductId &&
+					o.UserId == order.UserId).
+					FirstOrDefault();
+
+				if (orderInDb != null)
+				{
+					orderInDb.Count++;
+					orderInDb.Date = DateTime.Now;
+					db.Entry(orderInDb).State = EntityState.Modified;
+					db.SaveChanges();
+				}
+				else
+				{
+					order.Count++;
+					db.Orders.Add(order);
+					db.SaveChanges();
+				}
+				return RedirectToAction("UserOrders");
 			}
 
-			Add_ViewBag_UserId(order.UserId);
-			Add_ViewBag_ProductId(order.ProductId);
 			return View(order);
 		}
 
 		// GET: Orders/Edit/5
+		//[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Edit(int? id)
 		{
 			if (id == null)
@@ -78,12 +97,15 @@ namespace StoreMVC.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 			Order order = db.Orders.Find(id);
-			if (order == null)
+
+			if (order == null || order.UserId != WebSecurity.CurrentUserId)
 			{
 				return HttpNotFound();
 			}
-			Add_ViewBag_UserId(order.UserId);
-			Add_ViewBag_ProductId(order.ProductId);
+
+			AddViewBag_UsersIdSelectList(order.UserId);
+			AddViewBag_ProductsIdSelectList(order.ProductId);
+
 			return View(order);
 		}
 
@@ -92,20 +114,30 @@ namespace StoreMVC.Controllers
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "OrderId,UserId,ProductId,Date")] Order order)
+		//[Authorize(Roles = "Admin, Moderator")]
+		public ActionResult Edit([Bind(Include = "OrderId,UserId,ProductId,Count")] Order order)
 		{
+			if (order == null || order.UserId != WebSecurity.CurrentUserId)
+			{
+				return HttpNotFound();
+			}
+
+			AddViewBag_UsersIdSelectList(order.UserId);
+			AddViewBag_ProductsIdSelectList(order.ProductId);
+
 			if (ModelState.IsValid)
 			{
+				order.Date = DateTime.Now;
 				db.Entry(order).State = EntityState.Modified;
 				db.SaveChanges();
-				return RedirectToAction("Index");
+				return RedirectToAction("OrdersPageChoosing");
 			}
-			Add_ViewBag_UserId(order.UserId);
-			Add_ViewBag_ProductId(order.ProductId);
+
 			return View(order);
 		}
 
 		// GET: Orders/Delete/5
+		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -147,12 +179,46 @@ namespace StoreMVC.Controllers
 			return View(orders);
 		}
 
-		private void Add_ViewBag_UserId(int? userId = null)
+		public ActionResult OrdersSearchAll()
+		{
+			List<Order> ordersToShow = GetOrdersAll();
+
+			return PartialView("_OrdersDataPartial", ordersToShow);
+		}
+
+		public ActionResult OrdersSearchById()
+		{
+			//if (productsToShow.Count <= 0)
+			//{
+			//	return HttpNotFound();
+			//}
+			int userId = WebSecurity.CurrentUserId;
+			List<Order> ordersToShow = new List<Order>();
+			ordersToShow = GetOrdersByUserId(userId);
+
+			return PartialView("_OrdersDataPartial", ordersToShow);
+		}
+
+		public ActionResult OrdersPageChoosing()
+		{
+			if (User.IsInRole("Moderator"))
+			{
+				return RedirectToAction("Index");
+			}
+			else if (User.IsInRole("Admin"))
+			{
+				return RedirectToAction("Index");
+			}
+			else
+				return RedirectToAction("UserOrders");
+		}
+
+		private void AddViewBag_UsersIdSelectList(int? userId = null)
 		{
 			ViewBag.UserId = new SelectList(db.UserProfiles, "UserId", "UserName", userId);
 		}
 
-		private void Add_ViewBag_ProductId(int? productId = null)
+		private void AddViewBag_ProductsIdSelectList(int? productId = null)
 		{
 			ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", productId);
 		}

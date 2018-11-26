@@ -22,13 +22,13 @@
 			//OnFailure = "OnFailure"
 		};
 	}
-	@*@if (Request.IsAuthenticated)
-		{*@
-	<span style="margin-right: 5px; float: left;">
-		@Html.Partial("_CreateNewElementPartial")
-	</span>
-	<br /><br />
-	@*}*@
+	@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+	{
+		<span style="margin-right: 5px; float: left;">
+			@Html.Partial("_CreateNewElementPartial")
+		</span>
+		<br /><br />
+	}
 
 	<div>
 		@using (Ajax.BeginForm(ajaxOptions))

@@ -21,16 +21,23 @@
 					<i>Categorie: @Html.DisplayTextFor(modelItem => item.Category)</i>
 				</div>*@
 			<div>
-				<b>Цена: @Html.DisplayFor(modelItem => item.Price) p.</b>
+				<b>@Html.DisplayNameFor(model => model.Price): @Html.DisplayFor(model => item.Price) p.</b>
+			</div>
+			<div>
+				<b>@Html.DisplayNameFor(model => model.Count): @Html.DisplayFor(model => item.Count)</b>
 			</div>
 
 			<br />
 			<div>
+				@*@Html.Partial("_AddToBagButtonPartial", item.ProductId)
+		@Html.Partial("_PurchaseCountButtonPartial", item)*@
 				@Html.Partial("_AddToBagButtonPartial", item.ProductId)
-				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))*@
+
+				<br />
+				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
 				{
-				@Html.Partial("_EditButtonPartial", item.ProductId);
-				@Html.Partial("_DeleteButtonPartial", item.ProductId);
+					@Html.Partial("_EditButtonPartial", item.ProductId);
+					@Html.Partial("_DeleteButtonPartial", item.ProductId);
 				}
 			</div>
 		</div>

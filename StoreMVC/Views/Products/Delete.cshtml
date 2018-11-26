@@ -29,13 +29,16 @@
 			</div>
 			<br />
 			<div>
-				<b>Цена: @Html.DisplayFor(model => model.Price) р.</b>
+				<b>@Html.DisplayNameFor(model => model.Price): @Html.DisplayFor(model => model.Price) р.</b>
+			</div>
+			<div>
+				<b>@Html.DisplayNameFor(model => model.Count): @Html.DisplayFor(model => model.Count)</b>
 			</div>
 			<br />
 
 			@*<div>
-					@Html.DisplayFor(model => model.Category)
-				</div>*@
+			@Html.DisplayFor(model => model.Category)
+		</div>*@
 
 			@using (Html.BeginForm())
 			{

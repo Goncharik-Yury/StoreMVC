@@ -27,7 +27,10 @@
 			</div>
 			<br />
 			<div>
-				<b>Цена: @Html.DisplayFor(model => model.Price) р.</b>
+				<b>@Html.DisplayNameFor(model => model.Price): @Html.DisplayFor(model => model.Price) р.</b>
+			</div>
+			<div>
+				<b>@Html.DisplayNameFor(model => model.Count): @Html.DisplayFor(model => model.Count)</b>
 			</div>
 			<br />
 			@*<div>
@@ -35,9 +38,9 @@
 				</div>*@
 			<div>
 				@Html.Partial("_AddToBagButtonPartial", Model.ProductId)
-				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))*@
+				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
 				{
-				@Html.Partial("_EditButtonPartial", Model.ProductId)
+					@Html.Partial("_EditButtonPartial", Model.ProductId)
 				}
 			</div>
 		</div>

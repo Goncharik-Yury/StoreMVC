@@ -233,6 +233,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\UserProfilesController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -246,6 +247,18 @@
     <Compile Include="Migrations\201811181218242_AddMoneyField.cs" />
     <Compile Include="Migrations\201811181218242_AddMoneyField.Designer.cs">
       <DependentUpon>201811181218242_AddMoneyField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811191709161_MigrateDB.cs" />
+    <Compile Include="Migrations\201811191709161_MigrateDB.Designer.cs">
+      <DependentUpon>201811191709161_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811191957268_AddProductsCount.cs" />
+    <Compile Include="Migrations\201811191957268_AddProductsCount.Designer.cs">
+      <DependentUpon>201811191957268_AddProductsCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811201259336_AddOrderCount.cs" />
+    <Compile Include="Migrations\201811201259336_AddOrderCount.Designer.cs">
+      <DependentUpon>201811201259336_AddOrderCount.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -442,6 +455,8 @@
     <Content Include="Views\UserProfiles\Edit.cshtml" />
     <Content Include="Views\UserProfiles\Index.cshtml" />
     <Content Include="Views\Orders\UserOrders.cshtml" />
+    <Content Include="Views\Orders\_OrdersDataPartial.cshtml" />
+    <Content Include="Views\Shared\_DetailsButtonPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -461,6 +476,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811181218242_AddMoneyField.resx">
       <DependentUpon>201811181218242_AddMoneyField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811191709161_MigrateDB.resx">
+      <DependentUpon>201811191709161_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811191957268_AddProductsCount.resx">
+      <DependentUpon>201811191957268_AddProductsCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811201259336_AddOrderCount.resx">
+      <DependentUpon>201811201259336_AddOrderCount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

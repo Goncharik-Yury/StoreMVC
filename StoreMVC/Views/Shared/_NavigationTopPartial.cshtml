@@ -12,11 +12,11 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li>@Html.ActionLink("Products", "Index", "Products", new { categoryNameToSearch = "all" }, null)</li>
-				@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))*@
+				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
 				{
-					<li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+					<li>@Html.ActionLink("Customers", "Index", "UserProfiles")</li>
 					<li>@Html.ActionLink("Orders", "Index", "Orders")</li>
-					}
+				}
 
 				@*<li>@Html.ActionLink("Upload", "Upload", "Products")</li>*@
 				<li>
@@ -30,7 +30,7 @@
 					}
 				</li>
 				@*<li>@Html.ActionLink("About", "About", "Home")</li>
-				<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+					<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 			</ul>
 
 			<div id="login" class="navbar-form navbar-right">

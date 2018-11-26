@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebMatrix.WebData;
 using StoreMVC.Models;
 using System.Web.Security;
+using System.Collections.Generic;
 
 namespace StoreMVC.Filters
 {
@@ -64,21 +65,23 @@ namespace StoreMVC.Filters
 						roles.CreateRole("User");
 					}
 
+					IDictionary<string, object> deFaultEmail = new Dictionary<string, object>();
+					deFaultEmail.Add("Email", "qqq@qqq.qqq");
 					// Поиск пользователя с логином admin
 					if (membership.GetUser("admin", false) == null)
 					{
 						/*WebSecurity.CreateUserAndAccount("admin", "qwerty", new { FirstName = "Main", LastName = "Admin", Patronymic = "", Email = "Selest.gyv@gmail.com" });*/
-						membership.CreateUserAndAccount("admin", "qwerty"); // создание пользователя
+						membership.CreateUserAndAccount("admin", "qwerty", false, deFaultEmail); // создание пользователя
 						roles.AddUsersToRoles(new[] { "admin" }, new[] { "Admin" }); // установка роли для пользователя
 					}
 					if (membership.GetUser("moder", false) == null)
 					{
-						membership.CreateUserAndAccount("moder", "qwerty"); // создание пользователя
+						membership.CreateUserAndAccount("moder", "qwerty", false, deFaultEmail); // создание пользователя
 						roles.AddUsersToRoles(new[] { "moder" }, new[] { "Moderator" }); // установка роли для пользователя
 					}
 					//if (membership.GetUser("user", false) == null)
 					//{
-					//	membership.CreateUserAndAccount("user", "qwerty");
+					//	membership.CreateUserAndAccount("user", "qwerty", false, deFaultEmail);
 					//	roles.AddUsersToRoles(new[] { "user" }, new[] { "User" });
 					//}
 				}

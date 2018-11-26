@@ -30,7 +30,6 @@
 				}
 				<div class="col-md-4">
 					<a href=@Url.Action("Index", "Products", new { categoryNameToSearch = @item.Key })>
-						@* here *@
 						<img src="@ViewBag.imagesDirectoryPath@ViewBag.folderName@item.Key@ViewBag.imageExtention"
 							 class="img-responsive img-rounded center-block" style="height: 160px;" />
 
@@ -45,8 +44,3 @@
 	}
 </body>
 </html>
-
-@*@section Body
-	{
-		<h3>Home section</h3>
-	}*@

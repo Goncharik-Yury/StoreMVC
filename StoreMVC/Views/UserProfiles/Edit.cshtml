@@ -10,7 +10,6 @@
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()
-
 	<div class="form-horizontal">
 		<h4>UserProfile</h4>
 		<hr />
@@ -75,6 +74,6 @@
 	</div>
 }
 
-<div>
-	@Html.ActionLink("Back to List", "Index")
-</div>
+	<div>
+		@Html.Partial("_BackToListButtonPartial")
+	</div>

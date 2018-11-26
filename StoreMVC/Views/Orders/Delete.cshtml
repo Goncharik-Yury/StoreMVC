@@ -12,19 +12,21 @@
 	<title>Delete</title>
 </head>
 <body>
+	@Html.Partial("_BackToListButtonPartial")<br />
 	<h3>Are you sure you want to delete this order?</h3>
 	<br />
 	<div class="row">
 		<div class="col-md-9">
 			<div>
-				<b>Customer: </b>@Html.DisplayFor(model => model.UserProfile.UserName)
+				<b>@Html.DisplayNameFor(model => model.UserProfile.UserName):</b> @Html.DisplayFor(model => model.UserProfile.UserName)
 			</div>
 			<div>
-				<b>Product: </b>@Html.DisplayFor(model => model.Product.Name)
+				<b>@Html.DisplayNameFor(model => model.Product.Name):</b> @Html.DisplayFor(model => model.Product.Name)
 			</div>
 			<div>
-				<b>Date of order: </b>@Html.DisplayFor(model => model.Date) р.
+				<b>@Html.DisplayNameFor(model => model.Date):</b> @Html.DisplayFor(model => model.Date)
 			</div>
+			<br />
 
 			@*<div>
 					@Html.DisplayFor(model => model.Category)
@@ -37,7 +39,6 @@
 					<input type="submit" value="Delete" class="btn btn-default" />
 				</div>
 			}
-			@Html.Partial("_BackToListButtonPartial")<br />
 		</div>
 	</div>
 </body>
