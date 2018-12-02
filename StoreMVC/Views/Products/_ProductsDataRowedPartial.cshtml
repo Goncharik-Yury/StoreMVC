@@ -5,7 +5,7 @@
 {
 	<br />
 	<hr />
-	<div class="row">
+	<div class="row" onclick="document.location = '@Url.Action("Details", new { id = item.ProductId })';" role="button">
 		<div class="col-md-3">
 			<a href="@Url.Action("Details", new { id = item.ProductId })">
 				<img src="@Html.DisplayFor(modelItem => item.imgName)" class="img-responsive img-rounded center-block" style="height: 160px;" />

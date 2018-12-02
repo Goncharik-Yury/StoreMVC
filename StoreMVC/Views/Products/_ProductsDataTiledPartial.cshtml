@@ -1,0 +1,58 @@
+﻿@model IEnumerable<StoreMVC.Models.Product>
+
+@{
+	@: <div class="row">
+		var i = 0;
+		foreach (var item in Model)
+		{
+			if (i > 0 && i % 3 == 0)
+			{
+			@:</div>
+			<br />
+			@:<div class="row">
+			}
+			@*<div class="row" onclick="document.location = '@Url.Action("Details", new { id = item.ProductId })';" role="button">*@
+			<div class="container col-md-4" onclick="document.location = '@Url.Action("Details", new { id = item.ProductId })';" role="button">
+				<div>
+					<a href="@Url.Action("Details", new { id = item.ProductId })">
+						<img src="@Html.DisplayFor(modelItem => item.imgName)" class="img-responsive img-rounded center-block" style="height: 160px;" />
+					</a>
+					<br />
+				</div>
+				<div>
+					<b>@Html.ActionLink(item.Name, "Details", new { id = item.ProductId })</b>
+					<div>
+						@Html.DisplayFor(modelItem => item.Description)
+					</div>
+					<br />
+					@*<div>
+							<i>Categorie: @Html.DisplayTextFor(modelItem => item.Category)</i>
+						</div>*@
+					<div>
+						<b>@Html.DisplayNameFor(model => model.Price): @Html.DisplayFor(model => item.Price) p.</b>
+					</div>
+					<div>
+						<b>@Html.DisplayNameFor(model => model.Count): @Html.DisplayFor(model => item.Count)</b>
+					</div>
+				</div>
+				<br />
+				<div>
+					@*@Html.Partial("_PurchaseCountButtonPartial", item)*@
+					@Html.Partial("_AddToBagButtonPartial", item.ProductId)
+
+					@*@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+						{
+							@Html.Partial("_EditButtonPartial", item.ProductId);
+							@Html.Partial("_DeleteButtonPartial", item.ProductId);
+						}*@
+					<br />
+					<br />
+				</div>
+			</div>
+			++i;
+			@*</div>*@
+		}
+	@:</div>
+}
+@*</tbody>
+	</table>*@

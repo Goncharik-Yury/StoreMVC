@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StoreMVC.Models;
-
+using StoreMVC.Util;
 
 namespace StoreMVC.Controllers
 {
@@ -18,7 +18,7 @@ namespace StoreMVC.Controllers
 		// GET: Products
 		public ActionResult Index(String categoryNameToSearch="all", String productNameToSearch="")
 		{
-			Add_ViewBag_CategoriesSelectList();
+			ViewBag.Categories = Utility.CategoriesSelectList();
 			ViewBag.categoryNameToSearch = categoryNameToSearch;
 			ViewBag.productNameToSearch = productNameToSearch;
 			return View(/*db.Products.ToList()*/);
@@ -46,7 +46,7 @@ namespace StoreMVC.Controllers
 		public ActionResult Create()
 		{
 			/*ViewBag.Category = */
-			Add_ViewBag_CategoriesSelectList();
+			ViewBag.Categories = Utility.CategoriesSelectList();
 			return View();
 		}
 
@@ -59,7 +59,7 @@ namespace StoreMVC.Controllers
 		public ActionResult Create([Bind(Include = "ProductId,Name,Description,Price,Category,Count")] Product product, HttpPostedFileBase file)
 		{
 			/*ViewBag.Category = */
-			Add_ViewBag_CategoriesSelectList();
+			ViewBag.Categories = Utility.CategoriesSelectList();
 			if (product.Category == "all")
 			{
 				ModelState.AddModelError("Category", "Выберите категорию продукта");
@@ -80,7 +80,7 @@ namespace StoreMVC.Controllers
 		public ActionResult Edit(int? id)
 		{
 			/*ViewBag.Category = */
-			Add_ViewBag_CategoriesSelectList();
+			ViewBag.Categories = Utility.CategoriesSelectList();
 
 			if (id == null)
 			{
@@ -103,7 +103,7 @@ namespace StoreMVC.Controllers
 		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,Category,imgName,Count")] Product product, HttpPostedFileBase file, string imgName_old)
 		{
-			Add_ViewBag_CategoriesSelectList();
+			ViewBag.Categories = Utility.CategoriesSelectList();
 
 			if (product.Category == "all")
 			{
@@ -112,7 +112,7 @@ namespace StoreMVC.Controllers
 
 			if (ModelState.IsValid)
 			{
-				if (file != null) // ????????????????????????????????????????????????????????????????????????????????????????????????????????????
+				if (file != null)
 				{
 					product.imgName = ImageFuctionality.UploadImage(file, Server.MapPath("~"), ImageFuctionality.imagesDirectoryPath);
 					ImageFuctionality.DeleteImageFromServer(imgName_old, Server.MapPath("~"), ImageFuctionality.imagesDirectoryPath);
@@ -165,18 +165,19 @@ namespace StoreMVC.Controllers
 			base.Dispose(disposing);
 		}
 
-		public ActionResult ProductsSearch(string categoryNameToSearch, string productNameToSearch)
+		public ActionResult ProductsSearch(string productNameToSearch, string categoryNameToSearch)
 		{
-			//if (productsToShow.Count <= 0)
-			//{
-			//	return HttpNotFound();
-			//}
+			List<Product> productsToShow = GetProductsByName(productNameToSearch, categoryNameToSearch);
 
-			List<Product> productsToShow = GetProductsFromDB(categoryNameToSearch, productNameToSearch);
-			return PartialView("_ProductsDataPartial", productsToShow);
+			if (productsToShow.Count <= 0)
+			{
+				return View("Error");
+			}
+
+			return PartialView("_ProductsDataTiledPartial", productsToShow);
 		}
 
-		private List<Product> GetProductsFromDB(string categoryNameToSearch = "all", string productNameToSearch = "")
+		private List<Product> GetProductsByName(string productNameToSearch = "", string categoryNameToSearch = "all")
 		{
 			if (String.IsNullOrEmpty(categoryNameToSearch))
 				categoryNameToSearch = "all";
@@ -203,11 +204,6 @@ namespace StoreMVC.Controllers
 				return productsToShow;
 			}
 		}
-		//public ActionResult GetProductsOfCategory(string categoryNameToSearch)
-		//{
-		//	ViewBag.Categories = GetCategoriesSelectList();
-		//	return View("Index", productsOfCategory.ToList());
-		//}
 
 		public ActionResult Upload()
 		{
@@ -219,17 +215,6 @@ namespace StoreMVC.Controllers
 		{
 			ImageFuctionality.UploadImage(file, Server.MapPath("~"), ImageFuctionality.imagesDirectoryPath);
 			return View();
-		}
-
-		private void Add_ViewBag_CategoriesSelectList(int selectedItem = 1)
-		{
-			ViewBag.Categories = CategoriesSelectList(selectedItem);
-		}
-		private SelectList CategoriesSelectList(int selectedItem = 1)
-		{
-			var categoriesSelectList = ProductsCategories.CategoriesSelectList;
-			categoriesSelectList[0].Text = "";
-			return new SelectList(categoriesSelectList, "Value", "Text");
 		}
 	}
 }

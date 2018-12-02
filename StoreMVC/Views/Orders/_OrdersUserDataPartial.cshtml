@@ -1,0 +1,49 @@
+﻿@model IEnumerable<StoreMVC.Models.Order>
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Product.Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Product.Price)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Count)
+		</th>
+		<th>Total price</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Date)
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+	<tr onclick="document.location = '@Url.Action("Details", new { id = item.OrderId })';" role="button">
+		<td>
+			<a href="@Url.Action("Details", "Products", new { id = item.ProductId })">
+				@Html.DisplayFor(modelItem => item.Product.Name)
+			</a>
+		</td>
+		<td>
+			@Html.DisplayFor(model => item.Product.Price)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Count)
+		</td>
+		<td>
+			@(item.Product.Price * item.Count)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Date)
+		</td>
+		<td>
+			@Html.Partial("_BuyButtonPartial", item.OrderId)
+			@Html.Partial("_EditButtonPartial", item.OrderId)
+			@Html.Partial("_DeleteButtonPartial", item.OrderId)
+		</td>
+	</tr>
+	}
+
+</table>

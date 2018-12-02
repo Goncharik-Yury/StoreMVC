@@ -34,7 +34,7 @@
 		@using (Ajax.BeginForm(ajaxOptions))
 		{
 			<div class="form-group">
-				<input type="text" name="productNameToSearch" placeholder="Search..." class="form-control" />
+				<input type="text" name="productNameToSearch" placeholder="Product name" class="form-control" />
 				<br />
 				@Html.DropDownList("categoryNameToSearch", (SelectList)ViewBag.Categories, new { @class = "form-control" })
 				<br />

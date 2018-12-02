@@ -271,6 +271,7 @@
     <Compile Include="Util\CaptchaImage.cs" />
     <Compile Include="Util\ProductsCategories.cs" />
     <Compile Include="Util\ImageFuctionality.cs" />
+    <Compile Include="Util\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Data\DeletedCode.cs" />
@@ -437,11 +438,11 @@
     <Content Include="Views\Account\AdminPanel.cshtml" />
     <Content Include="Views\Account\ModeratorPanel.cshtml" />
     <Content Include="Views\Account\Cabinet.cshtml" />
-    <Content Include="Views\Products\_ProductsDataPartial.cshtml" />
+    <Content Include="Views\Products\_ProductsDataRowedPartial.cshtml" />
     <Content Include="Views\Products\Upload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ImageTemplate.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ImageTemplate.cshtml" />
-    <Content Include="Views\Shared\_BackToListButtonPartial.cshtml" />
+    <Content Include="Views\Shared\_BackButtonPartial.cshtml" />
     <Content Include="Views\Shared\_EditButtonPartial.cshtml" />
     <Content Include="Views\Shared\_DeleteButtonPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CategoryTemplate.cshtml" />
@@ -454,9 +455,12 @@
     <Content Include="Views\UserProfiles\Details.cshtml" />
     <Content Include="Views\UserProfiles\Edit.cshtml" />
     <Content Include="Views\UserProfiles\Index.cshtml" />
-    <Content Include="Views\Orders\UserOrders.cshtml" />
+    <Content Include="Views\Orders\OrdersUser.cshtml" />
     <Content Include="Views\Orders\_OrdersDataPartial.cshtml" />
     <Content Include="Views\Shared\_DetailsButtonPartial.cshtml" />
+    <Content Include="Views\Orders\_OrdersUserDataPartial.cshtml" />
+    <Content Include="Views\Shared\_BuyButtonPartial.cshtml" />
+    <Content Include="Views\Products\_ProductsDataTiledPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />

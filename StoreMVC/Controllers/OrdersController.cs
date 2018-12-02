@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using StoreMVC.Models;
 using StoreMVC.Filters;
 using WebMatrix.WebData;
+using StoreMVC.Util;
 
 namespace StoreMVC.Controllers
 {
@@ -21,7 +22,7 @@ namespace StoreMVC.Controllers
 		[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Index()
 		{
-			List<Order> orders = GetOrdersAll();
+			List<Order> orders = Utility.GetOrdersAll();
 			return View(orders);
 		}
 
@@ -32,60 +33,75 @@ namespace StoreMVC.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Order order = GetOrderByOrderId(id);
-			if (order == null)
+			Order order = Utility.GetOrderByOrderId(id);
+			if (!isUserGotPrivilegesOnOrder(order))
 			{
-				return HttpNotFound();
+				return View("Error");
 			}
+
 			return View(order);
 		}
 
 		// GET: Orders/Create
 		public ActionResult Create()
 		{
-			AddViewBag_UsersIdSelectList();
-			AddViewBag_ProductsIdSelectList();
+			ViewBag.UserId = Utility.UsersIdSelectList();
+			ViewBag.ProductId = Utility.ProductsIdSelectList();
 			return View();
 		}
 
 		// POST: Orders/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+		// new big method
 		[HttpPost]
 		[Authorize]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "OrderId,ProductId,Count")] Order order)
+		public ActionResult Create([Bind(Include = "ProductId")] Order order)
 		{
-			order.Date = DateTime.Now;
+			Product orderedProduct = Utility.GetProductById(order.ProductId);
+
+			if (orderedProduct.Count < 1)
+			{
+				return View();
+			}
+
+			int productsOrderedCount = 1;
+
 			order.UserId = WebSecurity.GetUserId(User.Identity.Name);
 
-			AddViewBag_UsersIdSelectList(order.UserId);
-			AddViewBag_ProductsIdSelectList(order.ProductId);
+			//ViewBag.UserId = Utility.UsersIdSelectList(order.UserId);
+			//ViewBag.ProductId = Utility.ProductsIdSelectList(order.ProductId);
 
-			if (ModelState.IsValid)
+			Order orderInDb = Utility.GetOrderByProductIdAndUserId(order.ProductId, order.UserId);
+
+			if (orderInDb == null)
 			{
-				Order orderInDb = db.Orders.Where(o =>
-					o.ProductId == order.ProductId &&
-					o.UserId == order.UserId).
-					FirstOrDefault();
-
-				if (orderInDb != null)
+				if (ModelState.IsValid)
 				{
-					orderInDb.Count++;
+					order.Date = DateTime.Now;
+					order.Count += productsOrderedCount;
+					db.Orders.Add(order);
+					db.SaveChanges();
+				}
+			}
+			else
+			{
+				if (orderInDb.Count + productsOrderedCount > orderedProduct.Count)
+				{
+					AddModalError_ProductCountOnStorage();
+				}
+				if (ModelState.IsValid)
+				{
+					orderInDb.Count += productsOrderedCount;
 					orderInDb.Date = DateTime.Now;
 					db.Entry(orderInDb).State = EntityState.Modified;
 					db.SaveChanges();
 				}
-				else
-				{
-					order.Count++;
-					db.Orders.Add(order);
-					db.SaveChanges();
-				}
-				return RedirectToAction("UserOrders");
-			}
 
-			return View(order);
+			}
+			return RedirectToAction("OrdersUser");
 		}
 
 		// GET: Orders/Edit/5
@@ -96,15 +112,12 @@ namespace StoreMVC.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Order order = db.Orders.Find(id);
+			Order order = Utility.GetOrderByOrderId(id);
 
-			if (order == null || order.UserId != WebSecurity.CurrentUserId)
+			if (!isUserGotPrivilegesOnOrder(order))
 			{
-				return HttpNotFound();
+				return View("Error");
 			}
-
-			AddViewBag_UsersIdSelectList(order.UserId);
-			AddViewBag_ProductsIdSelectList(order.ProductId);
 
 			return View(order);
 		}
@@ -115,40 +128,53 @@ namespace StoreMVC.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		//[Authorize(Roles = "Admin, Moderator")]
-		public ActionResult Edit([Bind(Include = "OrderId,UserId,ProductId,Count")] Order order)
+		public ActionResult Edit([Bind(Include = "Count")] int count)
 		{
-			if (order == null || order.UserId != WebSecurity.CurrentUserId)
+			int orderId = 0;
+			if (!Int32.TryParse(RouteData.Values["id"].ToString(), out orderId))
 			{
-				return HttpNotFound();
+				return View("Error");
 			}
 
-			AddViewBag_UsersIdSelectList(order.UserId);
-			AddViewBag_ProductsIdSelectList(order.ProductId);
+			Order order = GetOrderByOrderId(orderId);
+
+			if (count > order.Product.Count)
+			{
+				AddModalError_ProductCountOnStorage();
+			}
+
+			if (!isUserGotPrivilegesOnOrder(order))
+			{
+				return View("Error");
+			}
 
 			if (ModelState.IsValid)
 			{
 				order.Date = DateTime.Now;
+				order.Count = count;
 				db.Entry(order).State = EntityState.Modified;
 				db.SaveChanges();
-				return RedirectToAction("OrdersPageChoosing");
+				return RedirectToAction("OrdersUser");
 			}
 
 			return View(order);
 		}
 
 		// GET: Orders/Delete/5
-		[Authorize(Roles = "Admin, Moderator")]
+		//[Authorize(Roles = "Admin, Moderator")]
 		public ActionResult Delete(int? id)
 		{
 			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			Order order = GetOrderByOrderId(id);
-			if (order == null)
+			Order order = Utility.GetOrderByOrderId(id);
+
+			if (!isUserGotPrivilegesOnOrder(order))
 			{
 				return HttpNotFound();
 			}
+
 			return View(order);
 		}
 
@@ -160,7 +186,37 @@ namespace StoreMVC.Controllers
 			Order order = db.Orders.Find(id);
 			db.Orders.Remove(order);
 			db.SaveChanges();
-			return RedirectToAction("Index");
+			return RedirectToAction("OrdersUser");
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Buy(int orderId)
+		{
+			//int orderId = 0;
+			//if (!Int32.TryParse(RouteData.Values["id"].ToString(), out orderId))
+			//{
+			//	return View("Error");
+			//}
+
+			Order order = Utility.GetOrderByOrderId(orderId);
+
+			if (!isUserGotPrivilegesOnOrder(order))
+			{
+				return View("Error");
+			}
+
+			if (ModelState.IsValid)
+			{
+				order.Product.Count -= order.Count;
+
+				db.Entry(order.Product).State = EntityState.Modified;
+				db.Orders.Remove(GetOrderByOrderId(orderId));
+				db.SaveChanges();
+				return RedirectToAction("OrdersUser");
+			}
+
+			return RedirectToAction("OrdersUser");
 		}
 
 		protected override void Dispose(bool disposing)
@@ -172,31 +228,29 @@ namespace StoreMVC.Controllers
 			base.Dispose(disposing);
 		}
 
-		public ActionResult UserOrders()
+		public ActionResult OrdersUser()
 		{
 			int userId = WebSecurity.CurrentUserId;
-			List<Order> orders = GetOrdersByUserId(userId);
-			return View(orders);
+			List<Order> ordersToShow = Utility.GetOrdersByUserId(userId);
+			return View(ordersToShow);
+			//return PartialView("_OrdersUserDataPartial", ordersToShow);
 		}
 
-		public ActionResult OrdersSearchAll()
+		public ActionResult OrdersAll()
 		{
-			List<Order> ordersToShow = GetOrdersAll();
+			List<Order> ordersToShow = Utility.GetOrdersAll();
 
 			return PartialView("_OrdersDataPartial", ordersToShow);
 		}
 
-		public ActionResult OrdersSearchById()
+		public ActionResult OrdersSearchById(int? userId)
 		{
-			//if (productsToShow.Count <= 0)
-			//{
-			//	return HttpNotFound();
-			//}
-			int userId = WebSecurity.CurrentUserId;
-			List<Order> ordersToShow = new List<Order>();
-			ordersToShow = GetOrdersByUserId(userId);
+			if (userId == null || userId <= 0)
+			{
+				return View("Error");
+			}
 
-			return PartialView("_OrdersDataPartial", ordersToShow);
+			return PartialView("_OrdersUserDataPartial", Utility.GetOrdersByUserId(userId));
 		}
 
 		public ActionResult OrdersPageChoosing()
@@ -210,32 +264,28 @@ namespace StoreMVC.Controllers
 				return RedirectToAction("Index");
 			}
 			else
-				return RedirectToAction("UserOrders");
+				return RedirectToAction("OrdersUser");
 		}
 
-		private void AddViewBag_UsersIdSelectList(int? userId = null)
+		private Order GetOrderByOrderId(int? orderId)
 		{
-			ViewBag.UserId = new SelectList(db.UserProfiles, "UserId", "UserName", userId);
+			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).Where(o => o.OrderId == orderId).First();
 		}
 
-		private void AddViewBag_ProductsIdSelectList(int? productId = null)
+		private bool isUserGotPrivilegesOnOrder(Order order)
 		{
-			ViewBag.ProductId = new SelectList(db.Products, "ProductId", "Name", productId);
+			if (order == null ||
+				(order.UserId != WebSecurity.CurrentUserId &&
+				(!User.IsInRole("Admin") && !User.IsInRole("Moderator"))))
+			{
+				return false;
+			}
+			return true;
 		}
 
-		private List<Order> GetOrdersAll()
+		private void AddModalError_ProductCountOnStorage()
 		{
-			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).ToList();
+			ModelState.AddModelError("Count", "Not enough product on shop storage");
 		}
-		private Order GetOrderByOrderId(int? id)
-		{
-			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).Where(o => o.OrderId == id).First();
-		}
-
-		private List<Order> GetOrdersByUserId(int? id)
-		{
-			return db.Orders.Include(o => o.UserProfile).Include(o => o.Product).Where(o => o.UserId == id).ToList();
-		}
-
 	}
 }
