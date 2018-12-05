@@ -167,42 +167,14 @@ namespace StoreMVC.Controllers
 
 		public ActionResult ProductsSearch(string productNameToSearch, string categoryNameToSearch)
 		{
-			List<Product> productsToShow = GetProductsByName(productNameToSearch, categoryNameToSearch);
+			List<Product> productsToShow = Utility.GetProductsByName(db, productNameToSearch, categoryNameToSearch);
 
 			if (productsToShow.Count <= 0)
 			{
-				return View("Error");
+				return PartialView("_NothingFoundPartial");
 			}
 
 			return PartialView("_ProductsDataTiledPartial", productsToShow);
-		}
-
-		private List<Product> GetProductsByName(string productNameToSearch = "", string categoryNameToSearch = "all")
-		{
-			if (String.IsNullOrEmpty(categoryNameToSearch))
-				categoryNameToSearch = "all";
-			if (String.IsNullOrEmpty(productNameToSearch))
-				productNameToSearch = "";
-
-			if (!ProductsCategories.CategoriesDictionary.ContainsKey(categoryNameToSearch))
-			{
-				return new List<Product>();
-			}
-
-			if (categoryNameToSearch == "all")
-				categoryNameToSearch = "";
-
-			List<Product> productsOfCategory = db.Products.Where(model => model.Category.Contains(categoryNameToSearch)).ToList();
-
-			if (String.IsNullOrEmpty(productNameToSearch))
-			{
-				return productsOfCategory;
-			}
-			else
-			{
-				List<Product> productsToShow = productsOfCategory.Where(model => model.Name.ToLower().Contains(productNameToSearch.ToLower())).ToList();
-				return productsToShow;
-			}
 		}
 
 		public ActionResult Upload()

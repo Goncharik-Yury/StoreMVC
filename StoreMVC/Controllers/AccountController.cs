@@ -97,11 +97,11 @@ namespace StoreMVC.Controllers
 				}
 				catch (MembershipCreateUserException e)
 				{
-					ModelState.AddModelError("UserName", ErrorCodeToString(e.StatusCode));
+					ModelState.AddModelError("General", ErrorCodeToString(e.StatusCode));
 				}
 				catch (Exception e)
 				{
-					ModelState.AddModelError("UserName", "Somesing gone wrong. \n Error: " + e);
+					ModelState.AddModelError("General", "Somesing gone wrong. \n Error: " + e);
 				}
 			}
 
@@ -109,9 +109,18 @@ namespace StoreMVC.Controllers
 			return View(model);
 		}
 
+
+		public ActionResult AccountManage()
+		{
+			int userId = WebSecurity.GetUserId(User.Identity.Name);
+			UserProfile currentUser = db.UserProfiles.Find(userId);
+
+			return View(currentUser);
+		}
+
 		//
-		// GET: /Account/Manage
-		public ActionResult Manage(ManageMessageId? message)
+		// GET: /Account/PasswordChange
+		public ActionResult PasswordChange(ManageMessageId? message)
 		{
 			ViewBag.StatusMessage =
 				message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
@@ -119,24 +128,16 @@ namespace StoreMVC.Controllers
 				: message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
 				: "";
 			ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-			ViewBag.ReturnUrl = Url.Action("Manage");
-
-			int userId = WebSecurity.GetUserId(User.Identity.Name);
-			UserProfile currentUser = db.UserProfiles.Find(userId);
-			ViewBag.UserFirstName = currentUser.FirstName;
-			ViewBag.UserLastName = currentUser.LastName;
-			ViewBag.UserPatronymic = currentUser.Patronymic;
-			ViewBag.Email = currentUser.Email;
+			ViewBag.ReturnUrl = Url.Action("PasswordChange");
 
 			return View();
 		}
 
 		//
-		// POST: /Account/Manage
-
+		// POST: /Account/PasswordChange
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Manage(LocalPasswordModel model)
+		public ActionResult PasswordChange(LocalPasswordModel model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -153,7 +154,7 @@ namespace StoreMVC.Controllers
 
 				if (changePasswordSucceeded)
 				{
-					return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+					return RedirectToAction("PasswordChange", new { Message = ManageMessageId.ChangePasswordSuccess });
 				}
 				else
 				{
@@ -162,7 +163,7 @@ namespace StoreMVC.Controllers
 			}
 
 			// If we got this far, something failed, redisplay form
-			return View(model);
+			return View("PasswordChange", model);
 		}
 
 		#region Helpers

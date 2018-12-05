@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Globalization;
+using System.Linq;
+using System.Web.Mvc;
 using System.Web.Security;
 
 namespace StoreMVC.Models
@@ -23,7 +25,7 @@ namespace StoreMVC.Models
 		public string LastName { get; set; }
 		public string Patronymic { get; set; }
 
-		[Required(ErrorMessage = "Enter your email")]
+		//[Required(ErrorMessage = "Enter your email")]
 		[RegularExpression(@"(?i)\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", ErrorMessage = "Wrong email address")]
 		public string Email { get; set; }
 	}
@@ -41,6 +43,22 @@ namespace StoreMVC.Models
 			Patronymic = userProfile.Patronymic;
 			Email = userProfile.Email;
 		}
+
+		//public List<SelectListItem> RolesSelectList
+		//{
+		//	get
+		//	{
+		//		return Roles.Select((name, index) =>
+		//		{
+		//			return new SelectListItem
+		//			{
+
+		//				Value = name,
+		//				Text = name
+		//			};
+		//		}).ToList();
+		//	}
+		//}
 	}
 
 	public class LocalPasswordModel
@@ -58,7 +76,7 @@ namespace StoreMVC.Models
 
 		[DataType(DataType.Password)]
 		[Display(Name = "Confirm password")]
-		[Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+		[System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
 		public string ConfirmPassword { get; set; }
 	}
 
@@ -91,7 +109,7 @@ namespace StoreMVC.Models
 
 		[DataType(DataType.Password)]
 		[Display(Name = "Confirm password")]
-		[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+		[System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
 		public string ConfirmPassword { get; set; }
 
 		public string FirstName { get; set; }

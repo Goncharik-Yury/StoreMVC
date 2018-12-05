@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using StoreMVC.Models;
+using StoreMVC.Util;
 using WebMatrix.WebData;
 
 namespace StoreMVC.Controllers
@@ -51,31 +52,6 @@ namespace StoreMVC.Controllers
 			return View(userProfileFull);
 		}
 
-		// GET: UserProfiles/Create
-		//public ActionResult Create()
-		//{
-		//    return View();
-		//}
-
-		// POST: UserProfiles/Create
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-		//     [HttpPost]
-		//     [ValidateAntiForgeryToken]
-		//     public ActionResult Create([Bind(Include = "UserId,UserName,FirstName,LastName,Patronymic,Email")] UserProfile userProfile)
-		//     {
-		//isLoginIsAvailable(userProfile.UserName);
-
-		//if (ModelState.IsValid)
-		//         {
-		//             db.UserProfiles.Add(userProfile);
-		//             db.SaveChanges();
-		//             return RedirectToAction("Index");
-		//         }
-
-		//         return View(userProfile);
-		//     }
-
 		// GET: UserProfiles/Edit/5
 
 		public ActionResult Edit(int? id)
@@ -96,6 +72,7 @@ namespace StoreMVC.Controllers
 			}
 			//, new[] { "" }
 			string[] roles = rolesProvider.GetRolesForUser(userProfileFull.UserName);
+			ViewBag.RolesSelectList = Utility.ToSelectList(rolesProvider.GetAllRoles());
 			if (roles.Length <= 0)
 			{
 				userProfileFull.Roles = new[] { "" };
@@ -128,15 +105,15 @@ namespace StoreMVC.Controllers
 				}
 
 				db.SaveChanges();
+
 				if (User.IsInRole("Admin"))
 				{
 					return RedirectToAction("Index");
 					/*Redirect(Request.UrlReferrer.ToString());*/
 				}
-				return RedirectToAction("Manage", "Account", null);
-
+				return RedirectToAction("AccountManage", "Account", null);
 			}
-			return View(userProfile);
+			return View(new UserProfileFull(userProfile));
 		}
 
 		// GET: UserProfiles/Delete/5

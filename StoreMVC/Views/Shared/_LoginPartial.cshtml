@@ -4,7 +4,7 @@
 		<button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">@User.Identity.Name <span class="caret"></span></button>
 		<ul class="dropdown-menu" role="menu">
 			<li>
-				@Html.ActionLink("Settings", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+				@Html.ActionLink("Settings", "AccountManage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage account" })
 			</li>
 			@if (User.IsInRole("Admin"))
 			{

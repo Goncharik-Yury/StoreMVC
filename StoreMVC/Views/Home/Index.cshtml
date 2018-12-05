@@ -8,6 +8,8 @@
 	<title>Index</title>
 </head>
 <body>
+	<br />
+		<h2 class="text-center">Chose product category you want to search in</h2>
 	<br /><br />
 	@{
 		@*foreach (var item in Model)
@@ -16,7 +18,7 @@
 					<span class="catalog-category-item">@item.Value</span>
 				</button>
 			}*@
-		<br /><br />
+		@*<br /><br />*@
 		@: <div class="row">
 			var i = 0;
 			foreach (var item in Model)

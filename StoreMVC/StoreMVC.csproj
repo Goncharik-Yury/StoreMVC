@@ -260,6 +260,14 @@
     <Compile Include="Migrations\201811201259336_AddOrderCount.Designer.cs">
       <DependentUpon>201811201259336_AddOrderCount.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812041310245_MigrateDB1.cs" />
+    <Compile Include="Migrations\201812041310245_MigrateDB1.Designer.cs">
+      <DependentUpon>201812041310245_MigrateDB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812041315089_Email.cs" />
+    <Compile Include="Migrations\201812041315089_Email.Designer.cs">
+      <DependentUpon>201812041315089_Email.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -269,6 +277,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CaptchaImage.cs" />
+    <Compile Include="Util\UserRoles.cs" />
     <Compile Include="Util\ProductsCategories.cs" />
     <Compile Include="Util\ImageFuctionality.cs" />
     <Compile Include="Util\Utility.cs" />
@@ -432,9 +441,9 @@
     <Content Include="Views\Shared\_BreadCrumbsPartial.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\AccountManage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\PasswordChange.cshtml" />
     <Content Include="Views\Account\AdminPanel.cshtml" />
     <Content Include="Views\Account\ModeratorPanel.cshtml" />
     <Content Include="Views\Account\Cabinet.cshtml" />
@@ -461,6 +470,7 @@
     <Content Include="Views\Orders\_OrdersUserDataPartial.cshtml" />
     <Content Include="Views\Shared\_BuyButtonPartial.cshtml" />
     <Content Include="Views\Products\_ProductsDataTiledPartial.cshtml" />
+    <Content Include="Views\Products\_NothingFoundPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\Images\" />
@@ -489,6 +499,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811201259336_AddOrderCount.resx">
       <DependentUpon>201811201259336_AddOrderCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812041310245_MigrateDB1.resx">
+      <DependentUpon>201812041310245_MigrateDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812041315089_Email.resx">
+      <DependentUpon>201812041315089_Email.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
