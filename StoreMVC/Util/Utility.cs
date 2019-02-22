@@ -15,7 +15,11 @@ namespace StoreMVC.Util
 {
 	public static class Utility
 	{
-		//private static DBStoreMVC db = new DBStoreMVC();
+		
+		public static UserProfile GetUserById(DBStoreMVC db, int userId)
+		{
+			return db.UserProfiles.Find(userId);
+		}
 
 		public static List<Product> GetProductsByName(DBStoreMVC db, string productNameToSearch = "", string categoryNameToSearch = "all")
 		{

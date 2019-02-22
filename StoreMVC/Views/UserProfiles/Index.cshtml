@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<StoreMVC.Models.UserProfileFull>
 
 @{
-	ViewBag.Title = "Index";
+	ViewBag.Title = "Users profiles";
+	//ViewBag.ReturnUrl = Request.Url.AbsoluteUri;
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Users</h2>
+<br />
 
 @*<p>
 		@Html.Partial("_CreateNewElementPartial")
 	</p>*@
+
 <table class="table">
 	<tr>
 		<th>
@@ -35,32 +38,31 @@
 
 	@foreach (var item in Model)
 	{
-		<tr onclick="document.location = '@Url.Action("Details", new { id = item.UserId })';" role="button">
-				<td>
-					@Html.DisplayFor(modelItem => item.UserName)
+		<tr @*onclick="document.location = '@Url.Action("Details", new { id = item.UserId })';" role="button"*@>
+			<td>
+				@Html.DisplayFor(modelItem => item.UserName)
 
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.FirstName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.LastName)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Patronymic)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Email)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Roles)
-				</td>
-				<td>
-					@Html.Partial("_DetailsButtonPartial", item.UserId)
-					@Html.Partial("_EditButtonPartial", item.UserId)
-					@Html.Partial("_DeleteButtonPartial", item.UserId)
-				</td>
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.FirstName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.LastName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Patronymic)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Email)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Roles)
+			</td>
+			<td class="btn-group">
+				@Html.Partial("_DetailsButtonPartial", item.UserId)
+				@Html.Partial("_EditButtonPartial", item.UserId)
+				@Html.Partial("_DeleteButtonPartial", item.UserId)
+			</td>
 		</tr>
 	}
-
 </table>

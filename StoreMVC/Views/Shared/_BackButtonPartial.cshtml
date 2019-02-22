@@ -1,2 +1,5 @@
-﻿@*@Html.ActionLink("Back", "PreviousPage", "Shared", null, new { @class = "btn btn-default" })*@
-<a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-default">Back</a>
+﻿@model string
+
+@*@Html.ActionLink("Back", "PreviousPage", "Shared", null, new { @class = "btn btn-default" })*@
+
+<a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-default">@Model</a>

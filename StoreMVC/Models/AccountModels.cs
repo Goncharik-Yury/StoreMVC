@@ -115,6 +115,8 @@ namespace StoreMVC.Models
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Patronymic { get; set; }
+
+		[RegularExpression(@"(?i)\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", ErrorMessage = "Wrong email address")]
 		public string Email { get; set; }
 		[Required]
 		[Display(Name = "Enter symbols from the picture")]

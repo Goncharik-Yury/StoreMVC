@@ -12,7 +12,7 @@
 	<title>Delete</title>
 </head>
 <body>
-	@Html.Partial("_BackButtonPartial")<br />
+	@*@Html.Partial("_BackButtonPartial", "Back")<br />*@
 	<h3>Are you sure you want to delete this order?</h3>
 	<br />
 	<div class="row">
@@ -31,13 +31,19 @@
 			@*<div>
 					@Html.DisplayFor(model => model.Category)
 				</div>*@
+
+
 			@using (Html.BeginForm())
 			{
 				@Html.AntiForgeryToken()
+				
 
-				<div class="form-actions no-color">
-					<input type="submit" value="Delete" class="btn btn-default" />
-				</div>
+			<span class="btn-group">
+				@*@Html.ActionLink("Cancel", "...", new { ReturnUrl = Request.Url.AbsoluteUri }, new { @class = "btn btn-default", @style = "" })*@
+				@*<a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-default">Cancel</a>*@
+				@Html.Partial("_BackButtonPartial", "Cancel")
+				<input type="submit" value="Delete" class="btn btn-default" />
+			</span>
 			}
 		</div>
 	</div>

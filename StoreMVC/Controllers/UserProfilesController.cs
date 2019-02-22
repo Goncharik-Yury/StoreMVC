@@ -54,8 +54,10 @@ namespace StoreMVC.Controllers
 
 		// GET: UserProfiles/Edit/5
 
-		public ActionResult Edit(int? id)
+		public ActionResult Edit(int? id, string ReturnUrl)
 		{
+			ViewBag.ReturnUrl = ReturnUrl;
+
 			if (id == null)
 			{
 				id = WebSecurity.CurrentUserId;
@@ -85,14 +87,33 @@ namespace StoreMVC.Controllers
 			return View(userProfileFull);
 		}
 
+		[HttpPost]
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		public ActionResult EditByUser([Bind(Include = "FirstName,LastName,Patronymic,Email")] UserProfile userProfile, string[] Roles, string ReturnUrl)
+		{
+			UserProfile currentUserProfile = Utility.GetUserById(db, WebSecurity.CurrentUserId);
+			userProfile.UserId = currentUserProfile.UserId;
+			userProfile.UserName = currentUserProfile.UserName;
+			ModelState["UserName"].Errors.Clear();
+
+			return EditUserProfile(userProfile, Roles, ReturnUrl);
+		}
+
+		[HttpPost]
+		[Authorize(Roles = "Admin")]
+		[ValidateAntiForgeryToken]
+		public ActionResult EditByAdmin([Bind(Include = "UserId,UserName,FirstName,LastName,Patronymic,Email")] UserProfile userProfile, string[] Roles, string ReturnUrl)
+		{
+			return EditUserProfile(userProfile, Roles, ReturnUrl);
+		}
+
 		// POST: UserProfiles/Edit/5
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "UserId,UserName,FirstName,LastName,Patronymic,Email")] UserProfile userProfile, string[] Roles)
+		private ActionResult EditUserProfile(UserProfile userProfile, string[] Roles, string ReturnUrl)
 		{
-			isLoginIsAvailable(userProfile.UserName);
+			//isLoginIsAvailable(userProfile.UserName);
 
 			if (ModelState.IsValid)
 			{
@@ -106,14 +127,15 @@ namespace StoreMVC.Controllers
 
 				db.SaveChanges();
 
-				if (User.IsInRole("Admin"))
-				{
-					return RedirectToAction("Index");
-					/*Redirect(Request.UrlReferrer.ToString());*/
-				}
-				return RedirectToAction("AccountManage", "Account", null);
+				//if (User.IsInRole("Admin"))
+				//{
+				//	return RedirectToAction("Index");
+				//	/*Redirect(Request.UrlReferrer.ToString());*/
+				//}
+				return Redirect(ReturnUrl);
 			}
-			return View(new UserProfileFull(userProfile));
+			else
+				return View("Edit", new UserProfileFull(userProfile));
 		}
 
 		// GET: UserProfiles/Delete/5
@@ -156,9 +178,9 @@ namespace StoreMVC.Controllers
 			base.Dispose(disposing);
 		}
 
-		private bool isLoginIsAvailable(string name)
+		private bool isLoginIsAvailable(string UserName)
 		{
-			if (db.Customers.FirstOrDefault(n => n.Name == name) != null)
+			if (db.UserProfiles.FirstOrDefault(n => n.UserName == UserName) != null)
 			{
 				ModelState.AddModelError("UserName", "This login is already taken. Please choose another.");
 				return false;

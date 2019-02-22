@@ -95,7 +95,7 @@ namespace StoreMVC.Controllers
 			{
 				if (orderInDb.Count + productsOrderedCount > orderedProduct.Count)
 				{
-					AddModalError_ProductCountOnStorage();
+					AddModalError_ProductCountOnStorage(orderInDb.Count);
 				}
 				if (ModelState.IsValid)
 				{
@@ -145,7 +145,7 @@ namespace StoreMVC.Controllers
 
 			if (count > order.Product.Count)
 			{
-				AddModalError_ProductCountOnStorage();
+				AddModalError_ProductCountOnStorage(order.Product.Count);
 			}
 
 			if (!isUserGotPrivilegesOnOrder(order))
@@ -192,6 +192,12 @@ namespace StoreMVC.Controllers
 			db.Orders.Remove(order);
 			db.SaveChanges();
 			return RedirectToAction("OrdersUser");
+		}
+
+		[Authorize]
+		public ActionResult BuyPage(int orderId)
+		{
+			return View(orderId);
 		}
 
 		[HttpPost]
@@ -288,9 +294,9 @@ namespace StoreMVC.Controllers
 			return true;
 		}
 
-		private void AddModalError_ProductCountOnStorage()
+		private void AddModalError_ProductCountOnStorage(int count)
 		{
-			ModelState.AddModelError("Count", "Not enough product on shop storage");
+			ModelState.AddModelError("Count", "There are only " + count + " product" + (count <= 1 ? "" : "s") + " on shop storage");
 		}
 	}
 }

@@ -72,7 +72,7 @@
 
 	</dl>
 </div>
-<p>
-	@Html.Partial("_BackButtonPartial")
+<div class="btn-group">
+	@Html.Partial("_BackButtonPartial", "Cancel")
 	@Html.Partial("_EditButtonPartial", Model.UserId)
-</p>
+</div>

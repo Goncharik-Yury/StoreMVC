@@ -4,8 +4,9 @@
 	ViewBag.Title = "Delete";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*@Html.Partial("_BackButtonPartial", "Back")<br />*@
 
-<h2>Delete</h2>
+<h2>User profile deleting</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
@@ -65,9 +66,9 @@
 	{
 		@Html.AntiForgeryToken()
 
-	<div class="form-actions no-color">
-		@Html.Partial("_BackButtonPartial")
-		<input type="submit" value="Delete" class="btn btn-default" />
-	</div>
+		<div class="btn-group">
+			@Html.Partial("_BackButtonPartial", "Cancel")
+			<input type="submit" value="Delete" class="btn btn-default" />
+		</div>
 	}
 </div>

@@ -29,7 +29,7 @@
 
 	@foreach (var item in Model)
 	{
-		<tr onclick="document.location = '@Url.Action("Details", new { id = item.OrderId })';" role="button">
+		<tr @*onclick="document.location = '@Url.Action("Details", new { id = item.OrderId })';" role="button"*@>
 			<td>
 				<a href="@Url.Action("Details", "Products", new { id = item.ProductId })">
 					@Html.DisplayFor(modelItem => item.Product.Name)
@@ -53,7 +53,7 @@
 			<td>
 				@Html.DisplayFor(modelItem => item.Date)
 			</td>
-			<td>
+			<td class="btn-group">
 				@Html.Partial("_EditButtonPartial", item.OrderId)
 				@if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
 				{

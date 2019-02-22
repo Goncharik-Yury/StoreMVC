@@ -2,32 +2,35 @@
 @model StoreMVC.Models.UserProfile
 @{
 	ViewBag.Title = "Manage Account";
+	//ViewBag.ReturnUrl = Request.Url.AbsoluteUri;
 }
 
 <hgroup class="title">
-	<h2>@ViewBag.Title.</h2>
+	<h2>@ViewBag.Title</h2>
 </hgroup>
+<hr />
 
 <div class="form-group">
+	<h3>@Model.LastName @Model.FirstName @Model.Patronymic</h3>
+
 	<p>Nickname: <b>@Model.UserName</b></p>
-	<p>First name: <b>@Model.FirstName</b></p>
-	<p>Last name: <b>@Model.LastName</b>	</p>
-	<p>Patronymic: <b>@Model.Patronymic</b></p>
+	@*<p>First name: <b>@Model.FirstName</b></p>
+		<p>Last name: <b>@Model.LastName</b>	</p>
+		<p>Patronymic: <b>@Model.Patronymic</b></p>*@
 	<p>Email: <b>@Model.Email</b></p>
 </div>
-@Html.ActionLink("Edit account data", "Edit", "UserProfiles", null, new { @class = "", @style = "font-size: 150%" })
+@Html.ActionLink("Edit account data", "Edit", "UserProfiles", new { ReturnUrl = Request.Url.AbsoluteUri }, new { @class = "", @style = "font-size: 150%" })
 <br />
 
 @*@Html.Action("ProductsSearch", new { categoryNameToSearch = ViewBag.categoryNameToSearch, productNameToSearch = ViewBag.productNameToSearch })*@
 
 @*@Html.Partial("_ChangePasswordPartial")*@
 
-@Html.ActionLink("Change password", "PasswordChange", null, new { @class = "", @style = "font-size: 150%" })
+@Html.ActionLink("Change password", "PasswordChange", new { ReturnUrl = Request.Url.AbsoluteUri }, new { @class = "", @style = "font-size: 150%" })
 @*<a href='@Url.Action("PasswordChange")'>
-	Change password
-</a>*@
+		Change password
+	</a>*@
 @*@Html.Action("PasswordChange")*@
-
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")

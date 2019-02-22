@@ -45,7 +45,7 @@
 			</div>
 			<img src='@Url.Action("Captcha", "Account")' alt='captcha' />
 			<div>
-				@Html.TextBoxFor(model => model.Captcha, new { @class = "form-control", placeholder = "Simbols from image" })
+				@Html.TextBoxFor(model => model.Captcha, new { @class = "form-control", placeholder = "Simbols from image", AUTOCOMPLETE = "off" })
 				@Html.ValidationMessageFor(m => m.Captcha, "", new { @class = "text-danger" })
 			</div>
 		</div>

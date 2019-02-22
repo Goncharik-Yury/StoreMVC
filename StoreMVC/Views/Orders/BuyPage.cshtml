@@ -1,0 +1,31 @@
+﻿@model int
+@{
+	/**/
+
+	ViewBag.Title = "Buy page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Paying</h2>
+<hr />
+<br />
+<h4>Here you are just like paying for your order.</h4>
+<br />
+<div class="btn-group">
+	@Html.Partial("_BackButtonPartial", "Cancel")
+	@using (@Html.BeginForm("Buy", "Orders", FormMethod.Post, new { @class = "btn btn-default", @id = "BuyForm", @onclick = "Submit()" }))
+	{
+		@Html.AntiForgeryToken()
+		@Html.Hidden("orderId", Model)
+		<span>Pay by card</span>
+		@*<button type="submit" class="">Buy</button>*@
+	}
+</div>
+<script>
+	function Submit() {
+		if (confirm("Are you shure you want to confirm the order?")) {
+			document.getElementById('BuyForm').submit();
+		}
+	}
+</script>
+@*<div class="btn-link" onclick="">Pay by card</div>*@
