@@ -3,13 +3,17 @@
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-signin" }))
 {
 	@Html.AntiForgeryToken()
-	@*@Html.ValidationSummary()*@
+	@*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
 	@Html.ValidationMessage("General", new { @class = "text-danger" })
 
 
 	<div>
 		<div class="form-group">
 			<h2>Create a new account.</h2>
+		</div>
+		<div class="form-group">
+			<div style="color: red;">To authorize in a specific role withiout registration look in @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) page.</div>
+			@*<div class="alert-info">To authorize in a specific role withiout registration look in "Log in" page.</div>*@
 		</div>
 		<div class="form-group">
 			@Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" })

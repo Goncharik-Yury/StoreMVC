@@ -5,7 +5,7 @@
 	@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
 	{
 		@Html.AntiForgeryToken()
-		@Html.ValidationSummary()
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 		<div>
 			<div class="form-group">
@@ -26,6 +26,14 @@
 			<div class="form-group">
 				<input type="submit" value="Log in" />
 			</div>
+		</div>
+		<div class="form-group">
+			<b>To authorize in a specific role:</b> <br />
+			<b>Administrator</b>: admin - qwerty<br />
+			<b>Moderator</b>: moder - qwerty<br />
+			<b>User</b>: user - qewrty<br />
+			<i>Please, do not break my site as an administrator :)</i>
+			<br />
 		</div>
 		<div class="form-group">
 			@Html.ActionLink("Register", "Register") if you don't have an account.
